@@ -1,0 +1,40 @@
+{{- $knownIdentities := dict -}}
+{{- $_ := set $knownIdentities "lschmelzeisen" (dict "name" "Lukas Schmelzeisen" "mail" "l.schmelzeisen@gmx.de") -}}
+
+{{- $knownHosts := dict -}}
+{{- $_ := set $knownHosts "razorback" (dict "desktop" true) -}}
+
+{{- $identity := dict -}}
+{{- if hasKey $knownIdentities .chezmoi.username -}}
+  {{- $identity = get $knownIdentities .chezmoi.username -}}
+{{- else -}}
+  {{- $identityId := promptString (print "Intitity ID (" (keys $knownIdentities | join "/") "/other)") -}}
+  {{- if hasKey $knownIdentities $identityId -}}
+    {{- $identity = get $knownIdentities $identityId -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $name := "undef" -}}
+{{- $mail := "undef" -}}
+{{- if $identity -}}
+  {{- $name = get $identity "name" -}}
+  {{- $mail = get $identity "mail" -}}
+{{- else -}}
+  {{- $name = promptString "Full name" -}}
+  {{- $email = promptString "Email" -}}
+{{- end -}}
+
+{{- $desktop := false -}}
+{{- $host := get $knownHosts .chezmoi.hostname -}}
+{{- if $host -}}
+  {{- $desktop = get $host "desktop" -}}
+{{- else -}}
+  {{- $desktop = promptBool "Is this a desktop machine (y/n)" -}}
+{{- end -}}
+
+[data]
+# Identity
+name = "{{ $name }}"
+mail = "{{ $mail }}"
+# Host
+desktop = {{ $desktop }}
