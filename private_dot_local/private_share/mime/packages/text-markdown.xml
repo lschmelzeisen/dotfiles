@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+  Fix so that the markdown-viewer Firefox extensions works with local files
+  under Linux. See:
+  - https://github.com/KeithLRobertson/markdown-viewer#to-test-the-extension
+  - https://superuser.com/a/1175837
+-->
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+  <mime-type type="text/plain">
+    <glob pattern="*.md"/>
+    <glob pattern="*.mkd"/>
+    <glob pattern="*.mkdn"/>
+    <glob pattern="*.mdwn"/>
+    <glob pattern="*.mdown"/>
+    <glob pattern="*.markdown"/>
+  </mime-type>
+</mime-info>
+

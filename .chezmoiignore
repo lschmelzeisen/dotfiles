@@ -1,3 +1,7 @@
 LICENSE
 README.md
 
+{{ if not .desktop }}
+private_dot_local/private_share/mime/packages/text-markdown.xml
+private_dot_local/private_share/mime/run_once_update_mime_database.sh
+{{ end }}
