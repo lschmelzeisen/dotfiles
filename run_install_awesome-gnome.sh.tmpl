@@ -1,0 +1,19 @@
+#!/bin/sh
+
+echo "Installing awesome-gnome..."
+
+install_file() {
+    if cmp --silent "{{ .chezmoi.sourceDir }}/awesome-gnome/$1" "$2" ; then
+        echo "  File $1 already exists at location $2"
+    else
+        echo "  Installing file $1 to location $2"
+        sudo install -D --preserve-timestamps --mode $3 "{{ .chezmoi.sourceDir }}/awesome-gnome/$1" "$2"
+    fi
+}
+
+install_file awesome-gnome.desktop /usr/share/applications/awesome-gnome.desktop 0644
+install_file awesome-gnome.session /usr/share/gnome-session/sessions/awesome-gnome.session 0644
+install_file awesome-gnome.xsession.desktop /usr/share/xsessions/awesome-gnome.desktop 0644
+install_file awesome-gnome.service /usr/lib/systemd/user/awesome-gnome.service 0644
+install_file awesome-gnome.target /usr/lib/systemd/user/awesome-gnome.target 0644
+install_file session.conf /usr/lib/systemd/user/gnome-session@awesome-gnome.target.d/session.conf 0644

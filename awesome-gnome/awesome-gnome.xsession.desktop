@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=awesome-gnome
+Comment=AwesomeWM in GNOME session.
+Exec=/usr/bin/gnome-session --systemd --session awesome-gnome
+#TryExec=/usr/bin/awesome-gnome
+DesktopNames=GNOME
+X-GDM-SessionRegisters=true

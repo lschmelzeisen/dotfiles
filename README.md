@@ -8,7 +8,11 @@ My system configuration.
 
 ```sh
 chezmoi init --apply --verbose https://github.com/lschmelzeisen/dotfiles
+chezmoi apply
 ```
+
+The above command will try to install all dependencies automatically.
+If your system does not support this, it will print a list of dependencies to be installed.
 
 ## License
 

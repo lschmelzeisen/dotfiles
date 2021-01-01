@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=awesome-gnome
+Comment=AwesomeWM in GNOME session.
+#Exec=/usr/bin/awesome-gnome
+NoDisplay=true
+# For some documentation of the X-GNOME settings, see: https://gist.github.com/najamelan/b44e943145b03e018229
+X-GNOME-WMName=awesome-gnome
+X-GNOME-Autostart-Phase=WindowManager
+X-GNOME-Provides=windowmanager
+X-GNOME-Autostart-Notify=false
+X-GNOME-HiddenUnderSystemd=true

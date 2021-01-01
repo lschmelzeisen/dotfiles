@@ -1,0 +1,24 @@
+#!/bin/env sh
+
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
+
+echo "Installing general dependencies for Fedora:"
+sudo dnf install @admin-tools
+
+{{ if .desktop -}}
+echo "Installing desktop dependencies for Fedora:"
+sudo dnf install awesome gnome-flashback
+{{- end }}
+
+{{- else -}}
+
+echo "Automatic dependency installation not configured for operation system '{{ .chezmoi.osRelease.id }}'."
+echo "Install the following dependencies manually:"
+
+{{ if .desktop -}}
+echo "Desktop:"
+echo "- awesome: https://awesomewm.org/"
+echo "- gnome-flashback: https://wiki.gnome.org/Projects/GnomeFlashback"
+{{- end }}
+
+{{- end }}
