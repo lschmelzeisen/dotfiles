@@ -1,5 +1,5 @@
 [Unit]
-Description=awesome-gnome
+Description=awesome window manager in a GNOME session.
 DefaultDependencies=no
 
 Requisite=gnome-session-initialized.target

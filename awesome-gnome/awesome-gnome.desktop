@@ -1,8 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=awesome-gnome
-Comment=AwesomeWM in GNOME session.
-#Exec=/usr/bin/awesome-gnome
+Comment=awesome window manager in GNOME session.
 NoDisplay=true
 # For some documentation of the X-GNOME settings, see: https://gist.github.com/najamelan/b44e943145b03e018229
 X-GNOME-WMName=awesome-gnome

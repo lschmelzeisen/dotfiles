@@ -1,5 +1,5 @@
 [Unit]
-Description=awesome-gnome
+Description=awesome window manager in a GNOME session.
 OnFailure=gnome-session-failed.target
 OnFailureJobMode=replace
 CollectMode=inactive-or-failed
@@ -15,7 +15,6 @@ StartLimitBurst=3
 
 [Service]
 Type=simple
-#ExecStart=/usr/bin/awesome-gnome
 ExecStart=/usr/bin/awesome
 Restart=on-failure
 RestartSec=0ms

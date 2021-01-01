@@ -12,8 +12,8 @@ install_file() {
 }
 
 install_file awesome-gnome.desktop /usr/share/applications/awesome-gnome.desktop 0644
-install_file awesome-gnome.session /usr/share/gnome-session/sessions/awesome-gnome.session 0644
-install_file awesome-gnome.xsession.desktop /usr/share/xsessions/awesome-gnome.desktop 0644
 install_file awesome-gnome.service /usr/lib/systemd/user/awesome-gnome.service 0644
+install_file awesome-gnome.session /usr/share/gnome-session/sessions/awesome-gnome.session 0644
+install_file awesome-gnome.session.conf /usr/lib/systemd/user/gnome-session@awesome-gnome.target.d/session.conf 0644
 install_file awesome-gnome.target /usr/lib/systemd/user/awesome-gnome.target 0644
-install_file session.conf /usr/lib/systemd/user/gnome-session@awesome-gnome.target.d/session.conf 0644
+install_file awesome-gnome.xsession.desktop /usr/share/xsessions/awesome-gnome.desktop 0644
