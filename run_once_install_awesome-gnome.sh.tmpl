@@ -7,17 +7,16 @@ install_file() {
         echo "  File $1 already exists at location $2"
     else
         echo "  Installing file $1 to location $2"
-        sudo install -D --preserve-timestamps --mode $3 "{{ .chezmoi.sourceDir }}/awesome-gnome/$1" "$2"
+        sudo install -D --preserve-timestamps --mode 0644 "{{ .chezmoi.sourceDir }}/awesome-gnome/$1" "$2"
     fi
 }
 
-install_file awesome-gnome.desktop /usr/share/applications/awesome-gnome.desktop 0644
-install_file awesome-gnome.service /usr/lib/systemd/user/awesome-gnome.service 0644
-install_file awesome-gnome.session /usr/share/gnome-session/sessions/awesome-gnome.session 0644
-install_file awesome-gnome.session.conf /usr/lib/systemd/user/gnome-session@awesome-gnome.target.d/session.conf 0644
-install_file awesome-gnome.target /usr/lib/systemd/user/awesome-gnome.target 0644
-install_file awesome-gnome.xsession.desktop /usr/share/xsessions/awesome-gnome.desktop 0644
+install_file awesome-gnome.desktop /usr/share/applications/awesome-gnome.desktop
+install_file awesome-gnome.gschema.override /usr/share/glib-2.0/schemas/01_awesome-gnome.gschema.override
+install_file awesome-gnome.service /usr/lib/systemd/user/awesome-gnome.service
+install_file awesome-gnome.session /usr/share/gnome-session/sessions/awesome-gnome.session
+install_file awesome-gnome.session.conf /usr/lib/systemd/user/gnome-session@awesome-gnome.target.d/session.conf
+install_file awesome-gnome.target /usr/lib/systemd/user/awesome-gnome.target
+install_file awesome-gnome.xsession.desktop /usr/share/xsessions/awesome-gnome.desktop
 
-if [ "$(gsettings get org.gnome.gnome-flashback desktop)" != "false" ] ; then
-    gsettings set org.gnome.gnome-flashback desktop false
-fi
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas/

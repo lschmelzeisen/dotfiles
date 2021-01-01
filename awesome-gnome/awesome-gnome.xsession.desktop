@@ -3,5 +3,5 @@ Type=Application
 Name=awesome-gnome
 Comment=awesome window manager in a GNOME session.
 Exec=/usr/bin/gnome-session --systemd --session awesome-gnome
-DesktopNames=GNOME
+DesktopNames=awesome-gnome;GNOME-Flashback;GNOME;
 X-GDM-SessionRegisters=true
