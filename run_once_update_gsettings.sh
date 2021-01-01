@@ -1,0 +1,37 @@
+#!/usr/bin/env sh
+
+# The unit of temperature used for showing weather. Valid values are “kelvin”, “centigrade” and “fahrenheit”. Default: 'default'
+gsettings set org.gnome.GWeather temperature-unit 'centigrade'
+
+# Set this to TRUE to be able to send mouse clicks by tapping on the touchpad. Default: false
+gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+
+# The number of seconds of inactivity before the session is considered idle. Default: uint32 300
+gsettings set org.gnome.desktop.session idle-delay 600
+
+# Whether gedit should display the right margin in the editing area. Default: false
+gsettings set org.gnome.gedit.preferences.editor display-right-margin true
+
+# When a folder is visited this viewer is used unless you have selected another view for that particular folder. Possible values are “list-view”, and “icon-view”. Default: 'icon-view'
+gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view'
+
+# Enable XML editing UI Default: false
+gsettings set org.virt-manager.virt-manager xmleditor-enabled true
+
+# Whether to show toolbar containing Virtual Machine action buttons (such as Run, Pause, Shutdown) in the details display Default: true
+gsettings set org.virt-manager.virt-manager.details show-toolbar false
+
+# CPU setting to use for new VMs. Limited to VMs matching the host architecture. Possible values: default (virt-manager default), hv-default (qemu's default), host-model-only (just the model, not the additional features), host-model (libvirt's host-model setting), host-passthrough (libvirt's host-passthrough setting). Default: 'default'
+gsettings set org.virt-manager.virt-manager.new-vm cpu-default 'host-passthrough'
+
+# Whether or not the app will poll VM disk i/o statistics Default: false
+gsettings set org.virt-manager.virt-manager.stats enable-disk-poll true
+
+# Whether or not the app will poll VM memory statistics Default: false
+gsettings set org.virt-manager.virt-manager.stats enable-memory-poll true
+
+# Whether or not the app will poll VM network i/o statistics Default: false
+gsettings set org.virt-manager.virt-manager.stats enable-net-poll true
+
+# Show memory usage field in the domain list summary view Default: false
+gsettings set org.virt-manager.virt-manager.vmlist-fields memory-usage true
