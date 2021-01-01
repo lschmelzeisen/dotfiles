@@ -3,8 +3,16 @@ README.md
 
 awesome-gnome
 
-{{ if not .desktop }}
-.local/share/mime/packages/text-markdown.xml
-.local/share/mime/update_mime_database.sh
-install_awesome-gnome.sh
+{{ if not .host.desktop }}
+  .local/share/mime/packages/text-markdown.xml
+  update_mime_database.sh
+  install_awesome-gnome.sh
+{{ end }}
+
+{{ if not .host.barrier_host }}
+  .config/systemd/user/barrierc.service
+  enable_barrierc_service.sh
+{{ end }}
+{{ if not .host.barrier_fingerprint }}
+  .local/share/barrier/SSL/Fingerprints/TrustedServers.txt
 {{ end }}

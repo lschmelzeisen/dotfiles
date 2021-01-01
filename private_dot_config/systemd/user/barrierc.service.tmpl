@@ -1,0 +1,11 @@
+[Unit]
+Description=Barrier Client Daemon
+PartOf=awesome-gnome.target
+
+[Service]
+ExecStartPre=/usr/bin/sleep 3
+ExecStart=/usr/bin/barrierc --enable-crypto --debug INFO --no-daemon {{ .host.barrier_host }}
+Restart=always
+
+[Install]
+WantedBy=awesome-gnome.target

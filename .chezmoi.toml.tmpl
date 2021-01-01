@@ -1,40 +1,85 @@
-{{- $knownIdentities := dict -}}
-{{- $_ := set $knownIdentities "lschmelzeisen" (dict "name" "Lukas Schmelzeisen" "mail" "l.schmelzeisen@gmx.de") -}}
+{{- $chezmoi := .chezmoi }}{{- $users := dict -}}{{- $hosts := dict -}}
 
-{{- $knownHosts := dict -}}
-{{- $_ := set $knownHosts "razorback" (dict "desktop" true) -}}
 
-{{- $identity := dict -}}
-{{- if hasKey $knownIdentities .chezmoi.username -}}
-  {{- $identity = get $knownIdentities .chezmoi.username -}}
-{{- else -}}
-  {{- $identityId := promptString (print "Intitity ID (" (keys $knownIdentities | join "/") "/other)") -}}
-  {{- if hasKey $knownIdentities $identityId -}}
-    {{- $identity = get $knownIdentities $identityId -}}
+{{- /* === Customization ================================================ */ -}}
+
+{{- $lschmelzeisen := dict -}}
+  {{- $_ := set $lschmelzeisen "name" "Lukas Schmelzeisen" -}}
+  {{- $_ := set $lschmelzeisen "mail" "l.schmelzeisen@gmx.de" -}}
+{{- $_ = set $users "lschmelzeisen" $lschmelzeisen -}}
+
+{{- $razorback := dict -}}
+  {{- $_ := set $razorback "desktop" true -}}
+  {{- $_ := set $razorback "barrier_host" "192.168.178.20" -}}
+  {{- $_ := set $razorback "barrier_fingerprint" "DE:82:A3:44:00:D2:5D:AE:D3:A1:58:E9:22:A7:0A:CB:CB:7D:03:92" -}}
+{{- $_ = set $hosts "razorback" $razorback -}}
+
+
+{{- /* === User ========================================================= */ -}}
+
+{{- $userKeys := list "name" "mail" -}}
+{{- $user := dict -}}
+{{- range $key := $userKeys -}}
+  {{- with $u := get $users $chezmoi.username -}}
+    {{- $_ := hasKey $u $key | ternary (get $u $key) nil | set $user $key -}}
+  {{- else -}}
+    {{- $_ := set $user $key nil -}}
   {{- end -}}
 {{- end -}}
 
-{{- $name := "undef" -}}
-{{- $mail := "undef" -}}
-{{- if $identity -}}
-  {{- $name = get $identity "name" -}}
-  {{- $mail = get $identity "mail" -}}
-{{- else -}}
-  {{- $name = promptString "Full name" -}}
-  {{- $email = promptString "Email" -}}
+{{- if $user.name | kindIs "invalid" -}}
+  {{- $_ := promptString "Full name" | set $user "name" -}}
 {{- end -}}
 
-{{- $desktop := false -}}
-{{- $host := get $knownHosts .chezmoi.hostname -}}
-{{- if $host -}}
-  {{- $desktop = get $host "desktop" -}}
-{{- else -}}
-  {{- $desktop = promptBool "Is this a desktop machine (y/n)" -}}
+{{- if $user.mail | kindIs "invalid" -}}
+  {{- $_ := promptString "E-mail address" | set $user "mail" -}}
 {{- end -}}
+
+
+{{- /* === Host ========================================================= */ -}}
+
+{{- $hostKeys := list "desktop" "barrier_host" "barrier_fingerprint" }}
+{{- $host := dict -}}
+{{- range $key := $hostKeys -}}
+  {{- with $h := get $hosts $chezmoi.hostname -}}
+    {{- $_ := hasKey $h $key | ternary (get $h $key) nil | set $host $key -}}
+  {{- else -}}
+    {{- $_ := set $host $key nil -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $host.desktop | kindIs "invalid" -}}
+  {{- $_ := promptBool "Desktop machine (y/n)" | set $host "desktop" -}}
+{{- end -}}
+
+{{- if $host.desktop -}}
+  {{- if $host.barrier_host | kindIs "invalid" -}}
+    {{- $_ := promptString "Barrier host (leave blank to not install barrier)" | set $host "barrier_host" -}}
+  {{- end -}}
+  {{- if $host.barrier_fingerprint | kindIs "invalid" -}}
+    {{- if $host.barrier_host -}}
+      {{- $_ := promptString "Barrier host SSL fingerprint" | set $host "barrier_fingerprint" -}}
+    {{- else -}}
+      {{- $_ := set $host "barrier_fingerprint" "" -}}
+    {{- end -}}
+  {{- end -}}
+{{- else -}}
+  {{- if $host.barrier_host | kindIs "invalid" -}}
+    {{- $_ := set $host "barrier_host" "" -}}
+  {{- end -}}
+  {{- if $host.barrier_fingerprint | kindIs "invalid" -}}
+    {{- $_ := set $host "barrier_fingerprint" "" -}}
+  {{- end -}}
+{{- end -}}
+
 
 [data]
-# Identity
-name = "{{ $name }}"
-mail = "{{ $mail }}"
-# Host
-desktop = {{ $desktop }}
+  [data.user]
+  {{- range $key, $value := $user }}
+    {{ $key }} = {{ printf "%#v" $value }}
+  {{- end }}
+
+  [data.host]
+  {{- range $key, $value := $host }}
+    {{ $key }} = {{ printf "%#v" $value }}
+  {{- end }}
