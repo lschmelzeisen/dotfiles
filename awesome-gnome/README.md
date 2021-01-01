@@ -35,7 +35,7 @@ Installation in this repository is handled by [chezmoi](https://www.chezmoi.io/)
 
 * `awesome-gnome.desktop`:
   Specifies which GNOME component awesome-gnome provides.
-  Note, that this is not a traditional desktop application as with most other `.desktop` files.
+  Note, that unlike most other `.desktop` files, this does not specify an executable application, i.e., it has no `Exec` directive.
 
 To handle the GNOME session, we run [GNOME Flashback](https://wiki.gnome.org/Projects/GnomeFlashback) opposed to the regular [GNOME Shell](https://wiki.gnome.org/Projects/GnomeShell) because the former allows to change its window manager, while the latter does not.
 Additionally, all the above files are basically light modified versions of their GNOME Flashback counterparts, which should be checked for changes with each GNOME update.
