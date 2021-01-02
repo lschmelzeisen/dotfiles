@@ -6,7 +6,13 @@ awesome-gnome
 {{ if not .host.desktop }}
   .local/share/mime/packages/text-markdown.xml
   update_mime_database.sh
+
+  .config/awesome
   install_awesome-gnome.sh
+
+  install_inter_font.sh
+
+  update_gsettings.sh
 {{ end }}
 
 {{ if not .host.barrier_host }}
