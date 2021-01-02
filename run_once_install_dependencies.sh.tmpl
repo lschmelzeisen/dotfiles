@@ -5,6 +5,15 @@
 echo "Installing general dependencies for Fedora:"
 sudo dnf install @admin-tools
 
+{{ if .host.docker -}}
+{{- /* See: https://fedoramagazine.org/docker-and-fedora-32/ */ -}}
+sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+sudo firewall-cmd --permanent --zone=trusted --add-interface=docker0
+sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-masquerade
+sudo dnf install moby-engine docker-compose
+sudo systemctl enable docker
+{{- end }}
+
 {{ if .host.desktop -}}
 echo "Installing desktop dependencies for Fedora:"
 sudo dnf install awesome gnome-flashback

@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+{{ if .host.docker -}}
+sudo groupadd docker
+sudo usermod --append --groups docker $USER
+{{- end }}
+{{ if .host.docker_zfs -}}
+{{- if eq .chezmoi.osRelease.id "fedora" -}}
+sudo sed -i 's/storage-driver=overlay2/storage-driver=zfs/g' /etc/sysconfig/docker
+{{- else -}}
+echo "Automatic docker via ZFS settings not configured for operating system '{{ .chezmoi.osRelease.id }}'."
+{{- end -}}
+{{- end }}
