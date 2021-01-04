@@ -17,6 +17,10 @@ awesome-gnome
   update_gsettings.sh
 {{ end }}
 
+{{ if not .host.docker }}
+  configure_docker.sh.
+{{ end }}
+
 {{ if not .host.barrier_host }}
   .config/systemd/user/barrierc.service
   enable_barrierc_service.sh

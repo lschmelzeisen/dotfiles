@@ -3,7 +3,7 @@
 {{ if eq .chezmoi.osRelease.id "fedora" -}}
 
 echo "Installing general dependencies for Fedora:"
-sudo dnf install @admin-tools
+sudo dnf install @admin-tools neovim
 
 {{ if .host.docker -}}
 {{- /* See: https://fedoramagazine.org/docker-and-fedora-32/ */ -}}
@@ -19,15 +19,28 @@ echo "Installing desktop dependencies for Fedora:"
 sudo dnf install awesome gnome-flashback
 {{- end }}
 
+{{ if .host.barrier_host -}}
+sudo dnf install barrier
+{{- end }}
+
 {{- else -}}
 
 echo "Automatic dependency installation not configured for operating system '{{ .chezmoi.osRelease.id }}'."
 echo "Install the following dependencies manually:"
+echo "- Neovim: https://neovim.io/"
+
+{{ if .host.docker -}}
+echo "- Docker: https://www.docker.com/"
+{{- end }}
 
 {{ if .host.desktop -}}
 echo "Desktop:"
 echo "- awesome: https://awesomewm.org/"
 echo "- gnome-flashback: https://wiki.gnome.org/Projects/GnomeFlashback"
+{{- end }}
+
+{{ if .host.barrier_host -}}
+echo "- Barrier: https://github.com/debauchee/barrier"
 {{- end }}
 
 {{- end }}
