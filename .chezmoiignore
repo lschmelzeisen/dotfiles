@@ -12,6 +12,8 @@ awesome-gnome
 
   install_inter_font.sh
 
+  install_jetbrains_toolbox.sh
+
   update_gsettings.sh
 {{ end }}
 
