@@ -19,3 +19,9 @@ mkdir -p "$XDG_DATA_HOME/less"
 export LESSHISTFILE="$XDG_DATA_HOME/less/history"
 
 export JAVA_TOOL_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
+
+export VISUAL="nvim"
+export EDITOR="nvim"
+
+alias vi="nvim"
+alias vim="nvim"
