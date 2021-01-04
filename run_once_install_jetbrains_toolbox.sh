@@ -3,7 +3,7 @@
 
 DIR=~/.local/share/JetBrains/Toolbox
 
-if [[ ! -d $DIR ]] ; then
+if [ ! -d $DIR ] ; then
     URL=$(curl \
         "https://data.services.jetbrains.com//products/releases?code=TBA&latest=true&type=release" \
         -H "Origin: https://www.jetbrains.com" \

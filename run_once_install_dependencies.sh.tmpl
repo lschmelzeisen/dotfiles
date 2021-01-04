@@ -1,26 +1,36 @@
-#!/bin/env sh
+#!/usr/bin/env sh
 
 {{ if eq .chezmoi.osRelease.id "fedora" -}}
 
 echo "Installing general dependencies for Fedora:"
-sudo dnf install @admin-tools neovim
+sudo dnf install \
+    @admin-tools \
+    neovim
 
 {{ if .host.docker -}}
 {{- /* See: https://fedoramagazine.org/docker-and-fedora-32/ */ -}}
 sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
 sudo firewall-cmd --permanent --zone=trusted --add-interface=docker0
 sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-masquerade
-sudo dnf install moby-engine docker-compose
+sudo dnf install \
+    docker-compose \
+    moby-engine
 sudo systemctl enable docker
 {{- end }}
 
 {{ if .host.desktop -}}
 echo "Installing desktop dependencies for Fedora:"
-sudo dnf install awesome gnome-flashback
+sudo dnf install \
+    awesome \
+    gnome-flashback \
+    gnome-themes-extra \
+    gnome-tweaks \
+    gtk-murrine-engine
 {{- end }}
 
 {{ if .host.barrier_host -}}
-sudo dnf install barrier
+sudo dnf install \
+    barrier
 {{- end }}
 
 {{- else -}}
@@ -36,7 +46,10 @@ echo "- Docker: https://www.docker.com/"
 {{ if .host.desktop -}}
 echo "Desktop:"
 echo "- awesome: https://awesomewm.org/"
-echo "- gnome-flashback: https://wiki.gnome.org/Projects/GnomeFlashback"
+echo "- GNOME Flashback: https://wiki.gnome.org/Projects/GnomeFlashback"
+echo "- GNOME Tweaks: https://wiki.gnome.org/Apps/Tweaks"
+echo "- GNOME Extra Themes: https://gitlab.gnome.org/GNOME/gnome-themes-extra"
+echo "- GTK Murrine Engine"
 {{- end }}
 
 {{ if .host.barrier_host -}}

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 if [ -d "$HOME/.java" ] ; then
     mv "$HOME/.java" "${XDG_CONFIG_HOME:-$HOME/.config}/java"
 fi
