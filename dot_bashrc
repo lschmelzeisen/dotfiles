@@ -1,0 +1,21 @@
+if [ -f /etc/bashrc ] ; then
+    . /etc/bashrc
+fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]] ; then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+
+mkdir -p "$XDG_DATA_HOME/bash"
+export HISTFILE="$XDG_DATA_HOME/bash/history"
+
+mkdir -p "$XDG_DATA_HOME/less"
+export LESSHISTFILE="$XDG_DATA_HOME/less/history"
+
+export JAVA_TOOL_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
