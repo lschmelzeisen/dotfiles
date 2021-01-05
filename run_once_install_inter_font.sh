@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-TEMPDIR=$(mktemp --directory)
+TEMPDIR=$(mktemp --directory --tmpdir 'chezmoi-XXXXXXXXXX-install-inter-font')
 curl --location --output $TEMPDIR/inter.zip https://github.com/rsms/inter/releases/download/v3.15/Inter-3.15.zip
 unzip $TEMPDIR/inter.zip -d $TEMPDIR
 mkdir -p ~/.local/share/fonts/inter

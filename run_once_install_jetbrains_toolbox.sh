@@ -16,7 +16,7 @@ if [ ! -d $DIR ] ; then
         -H "DNT: 1" \
         --compressed | grep -Po '"linux":.*?[^\\]",' | awk -F ':' '{print $3,":"$4}'| sed 's/[", ]//g')
 
-    TEMPDIR=$(mktemp --directory)
+    TEMPDIR=$(mktemp --directory --tmpdir 'chezmoi-XXXXXXXXXX-install-jetbrains-toolbox')
     curl --location --output $TEMPDIR/jetbrains-toolbox.tar.gz $URL
 
     mkdir $DIR
