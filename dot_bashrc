@@ -25,3 +25,7 @@ export EDITOR="nvim"
 
 alias vi="nvim"
 alias vim="nvim"
+
+alias ccd="chezmoi cd"
+alias can="chezmoi apply --verbose --dry-run"
+alias ca="chezmoi apply"
