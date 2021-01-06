@@ -1,0 +1,12 @@
+layouts/*.png
+  Taked from awesome default theme
+
+titlebar/*.png
+  Taken from https://github.com/vinceliuice/Orchis-theme/tree/master/src/xfwm4/assets
+  Manually modified to remove top border color from icons
+  
+titlebar/shade-toggled-*.png
+  Manually created from the regular shade-*.png by flipping vertically.
+
+submenu.svg
+  Taken from https://github.com/vinceliuice/Orchis-theme/blob/master/src/gnome-shell/assets-dark/calendar-arrow-right.svg

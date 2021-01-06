@@ -1,0 +1,26 @@
+# Modifies the defaults of https://github.com/Koihik/LuaFormatter
+
+# Align arguements of function call if there is a line break. If false, use 
+# continuation_indent_width to indentation.
+align_args: false
+
+# Align parameter of function define if there is a line break. if false, use
+# continuation_indent_width to indentation.
+align_parameter: false
+
+# Chop down all parameters if the function declaration doesn’t fit on a line.
+chop_down_parameter: true
+
+# Align fields of table if there is a line break. if false, use indent_width to
+# indentation.
+align_table_field: false
+
+# Chop down any table.
+chop_down_table: true
+
+# Add a extra field separator after last field unless the table is in a single
+# line.
+extra_sep_at_table_end: true
+
+# Transform string literals to use double quote.
+single_quote_to_double_quote: true
