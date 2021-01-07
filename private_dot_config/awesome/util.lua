@@ -47,6 +47,7 @@ do
         local desktop_file_path = util.apps.desktop_files()[desktop_file]
         local app = menubar.utils.parse_desktop_file(desktop_file_path)
         apps[mime_type] = {
+            name = app.Name,
             icon = app.icon_path,
             spawn = function() awful.spawn(app.cmdline) end,
         }
@@ -65,6 +66,18 @@ end
 
 function util.apps.default_browser()
     return util.apps.default_for_mime_type("text/html")
+end
+
+function util.apps.default_mail()
+    return util.apps.default_for_mime_type("x-scheme-handler/mailto")
+end
+
+function util.apps.default_calendar()
+    return util.apps.default_for_mime_type("text/calendar")
+end
+
+function util.apps.default_audio()
+    return util.apps.default_for_mime_type("x-content/audio-player")
 end
 
 function util.misc.show_hotkeys_popup()
