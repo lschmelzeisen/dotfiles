@@ -14,6 +14,7 @@
   {{- $_ := set $razorback "desktop" true -}}
   {{- $_ := set $razorback "barrier_host" "192.168.178.20" -}}
   {{- $_ := set $razorback "barrier_fingerprint" "DE:82:A3:44:00:D2:5D:AE:D3:A1:58:E9:22:A7:0A:CB:CB:7D:03:92" -}}
+  {{- $_ := set $razorback "msteams" true -}}
 {{- $_ = set $hosts "razorback" $razorback -}}
 
 
@@ -40,7 +41,7 @@
 
 {{- /* === Host ========================================================= */ -}}
 
-{{- $hostKeys := list "docker" "docker_zfs" "desktop" "barrier_host" "barrier_fingerprint" }}
+{{- $hostKeys := list "docker" "docker_zfs" "desktop" "barrier_host" "barrier_fingerprint" "msteams" }}
 {{- $host := dict -}}
 {{- range $key := $hostKeys -}}
   {{- with $h := get $hosts $chezmoi.hostname -}}
@@ -76,12 +77,21 @@
       {{- $_ := set $host "barrier_fingerprint" "" -}}
     {{- end -}}
   {{- end -}}
+
+  {{- if $host.msteams | kindIs "invalid" -}}
+    {{- $_ := promptString "Install Microsoft Teams (y/n)" | set $host "msteams" -}}
+  {{- end -}}
+
 {{- else -}}
   {{- if $host.barrier_host | kindIs "invalid" -}}
     {{- $_ := set $host "barrier_host" "" -}}
   {{- end -}}
   {{- if $host.barrier_fingerprint | kindIs "invalid" -}}
     {{- $_ := set $host "barrier_fingerprint" "" -}}
+  {{- end -}}
+
+  {{- if $host.msteams | kindIs "invalid" -}}
+    {{- $_ := set $host "msteams" false -}}
   {{- end -}}
 {{- end -}}
 

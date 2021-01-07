@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
+sudo sh -c "cat > /etc/yum.repos.d/teams.repo" <<-EOF
+[teams]
+name=teams
+baseurl=https://packages.microsoft.com/yumrepos/ms-teams
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+EOF
+sudo dnf install teams
+{{- else -}}
+echo "Automatic installation of Microsoft Teams not configured for operating system '{{ .chezmoi.osRelease.id }}'."
+{{- end }}
