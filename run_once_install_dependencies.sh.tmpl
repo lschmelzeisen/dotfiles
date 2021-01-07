@@ -22,6 +22,8 @@ sudo systemctl enable docker
 echo "Installing desktop dependencies for Fedora:"
 sudo dnf install \
     awesome \
+    evolution \
+    evolution-ews \
     gnome-flashback \
     gnome-themes-extra \
     gnome-tweaks \
@@ -46,6 +48,8 @@ echo "- Docker: https://www.docker.com/"
 {{ if .host.desktop -}}
 echo "Desktop:"
 echo "- awesome: https://awesomewm.org/"
+echo "- Evolution: https://wiki.gnome.org/Apps/Evolution"
+echo "- Evolution EWS: https://wiki.gnome.org/Apps/Evolution/EWS"
 echo "- GNOME Flashback: https://wiki.gnome.org/Projects/GnomeFlashback"
 echo "- GNOME Tweaks: https://wiki.gnome.org/Apps/Tweaks"
 echo "- GNOME Extra Themes: https://gitlab.gnome.org/GNOME/gnome-themes-extra"
