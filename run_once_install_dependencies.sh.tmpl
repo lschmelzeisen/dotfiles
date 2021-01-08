@@ -2,12 +2,21 @@
 
 {{ if eq .chezmoi.osRelease.id "fedora" -}}
 
+echo "Setting up RPM Fusion repositories:"
+sudo dnf install fedora-workstation-repositoriessudo dnf install \
+    https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+    https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install rpmfusion-free-release-tainted rpmfusion-nonfree-release-tainted
+sudo dnf groupupdate core multimedia sound-and-video
+sudo dnf update
+
 echo "Installing general dependencies for Fedora:"
 sudo dnf install \
     @admin-tools \
     neovim
 
 {{ if .host.docker -}}
+echo "Installing Docker:"
 {{- /* See: https://fedoramagazine.org/docker-and-fedora-32/ */ -}}
 sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
 sudo firewall-cmd --permanent --zone=trusted --add-interface=docker0
@@ -16,6 +25,17 @@ sudo dnf install \
     docker-compose \
     moby-engine
 sudo systemctl enable docker
+{{- end }}
+
+{{ if .host.nvidia -}}
+echo "Installing NVIDIA drivers:"
+# This uses the packages from the RPM Fusion repositories added above. For
+# installing NVIDIA drivers, the negativo17 NVIDIA repo [1] seem to also offer a
+# fairly well maintained option. However, I rather opt for RPM Fusion, as its
+# maintained by multiple people that, additionally, are also established Fedora
+# package maintainers.
+# [1] https://negativo17.org/nvidia-driver/
+sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda vulkan vdpauinfo libva-vdpau-driver libva-utils
 {{- end }}
 
 {{ if .host.desktop -}}

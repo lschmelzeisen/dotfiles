@@ -11,6 +11,7 @@
 {{- $razorback := dict -}}
   {{- $_ := set $razorback "docker" true -}}
   {{- $_ := set $razorback "docker_zfs" true -}}
+  {{- $_ := set $razorback "nvidia" true -}}
   {{- $_ := set $razorback "desktop" true -}}
   {{- $_ := set $razorback "barrier_host" "192.168.178.20" -}}
   {{- $_ := set $razorback "barrier_fingerprint" "DE:82:A3:44:00:D2:5D:AE:D3:A1:58:E9:22:A7:0A:CB:CB:7D:03:92" -}}
@@ -60,6 +61,10 @@
   {{- end -}}
 {{- else -}}
   {{- $_ := set $host "docker_zfs" false -}}
+{{- end -}}
+
+{{- if $host.nvidia | kindIs "invalid" -}}
+  {{- $_ := promptBool "Install NVIDIA drivers (y/n)" | set $host "nvidia" -}]
 {{- end -}}
 
 {{- if $host.desktop | kindIs "invalid" -}}
