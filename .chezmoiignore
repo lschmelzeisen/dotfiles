@@ -21,6 +21,10 @@ awesome-gnome
   configure_docker.sh.
 {{ end }}
 
+{{ if not .host.nvidia_power }}
+  configure_nvidia_dynamic_power.sh
+{{ end }}
+
 {{ if not .host.barrier_host }}
   .config/systemd/user/barrierc.service
   enable_barrierc_service.sh

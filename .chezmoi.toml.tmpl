@@ -12,6 +12,7 @@
   {{- $_ := set $razorback "docker" true -}}
   {{- $_ := set $razorback "docker_zfs" true -}}
   {{- $_ := set $razorback "nvidia" true -}}
+  {{- $_ := set $razorback "nvidia_power" true -}}
   {{- $_ := set $razorback "desktop" true -}}
   {{- $_ := set $razorback "barrier_host" "192.168.178.20" -}}
   {{- $_ := set $razorback "barrier_fingerprint" "DE:82:A3:44:00:D2:5D:AE:D3:A1:58:E9:22:A7:0A:CB:CB:7D:03:92" -}}
@@ -42,7 +43,7 @@
 
 {{- /* === Host ========================================================= */ -}}
 
-{{- $hostKeys := list "docker" "docker_zfs" "desktop" "barrier_host" "barrier_fingerprint" "msteams" }}
+{{- $hostKeys := list "docker" "docker_zfs" "nvidia" "nvidia_power" "desktop" "barrier_host" "barrier_fingerprint" "msteams" }}
 {{- $host := dict -}}
 {{- range $key := $hostKeys -}}
   {{- with $h := get $hosts $chezmoi.hostname -}}
@@ -64,7 +65,14 @@
 {{- end -}}
 
 {{- if $host.nvidia | kindIs "invalid" -}}
-  {{- $_ := promptBool "Install NVIDIA drivers (y/n)" | set $host "nvidia" -}]
+  {{- $_ := promptBool "Install NVIDIA drivers (y/n)" | set $host "nvidia" -}}
+{{- end -}}
+{{- if $host.nvidia -}}
+  {{- if $host.nvidia_power | kindIs "invalid" -}}
+    {{- $_ := promptBool "Set up fine-grained dynamic power control for NVIDIA, only supported Notebooks with Turing or newer GPUs (y/n)" | set $host "nvidia_power" -}}
+  {{- end -}}
+{{- else -}}
+  {{- $_ := set $host "nvidia_power" false -}}
 {{- end -}}
 
 {{- if $host.desktop | kindIs "invalid" -}}
