@@ -15,11 +15,11 @@ end
 function util.path.basename(path) return path:match("/([^/]-)$") end
 
 do
-    local desktop_files = nil
+    local cache = nil
     function util.apps.desktop_files()
-        if desktop_files then return desktop_files end
+        if cache then return cache end
 
-        desktop_files = {}
+        cache = {}
         for i = #menubar.menu_gen.all_menu_dirs, 1, -1 do
             local dir = menubar.menu_gen.all_menu_dirs[i]
             if filesystem.is_dir(dir) then
@@ -28,32 +28,32 @@ do
                     local path = find:read("*l")
                     if not path then break end
                     local file = util.path.basename(path)
-                    desktop_files[file] = path
+                    cache[file] = path
                 end
             end
         end
 
-        return desktop_files
+        return cache
     end
 end
 
-do
-    local apps = {}
-    function util.apps.default_for_mime_type(mime_type)
-        if apps[mime_type] then return apps[mime_type] end
+function util.apps.app(spec)
+    if type(spec) == "string" then spec = {spec} end
+    if spec.name and spec.icon and spec.spawn then return spec end
 
-        local desktop_file = util.string.trim(
-            io.popen("xdg-mime query default " .. mime_type):read("*a"))
-        local desktop_file_path = util.apps.desktop_files()[desktop_file]
-        local app = menubar.utils.parse_desktop_file(desktop_file_path)
-        apps[mime_type] = {
-            name = app.Name,
-            icon = app.icon_path,
-            spawn = function() awful.spawn(app.cmdline) end,
-        }
+    local _, desktop_file = next(spec)
+    local desktop_file_path = util.apps.desktop_files()[desktop_file]
+    local app = menubar.utils.parse_desktop_file(desktop_file_path)
+    return {
+        name = spec.name or app.Name,
+        icon = spec.icon or app.icon_path,
+        spawn = spec.spawn or function() awful.spawn(app.cmdline) end,
+    }
+end
 
-        return apps[mime_type]
-    end
+function util.apps.default_for_mime_type(mime_type)
+    return util.string.trim(
+        io.popen("xdg-mime query default " .. mime_type):read("*a"))
 end
 
 function util.apps.default_file_manager()

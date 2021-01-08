@@ -1,8 +1,13 @@
 local awful = require("awful")
 
-local config = {terminal = "gnome-terminal"}
-
-function config.settings() awful.spawn("gnome-control-center") end
+local config = {
+    terminal = "org.gnome.Terminal.desktop",
+    settings = "gnome-control-center.desktop",
+    apps = {
+        {"org.gnome.Calendar.desktop"},
+        {"teams.desktop", name = "Microsoft Teams"},
+    },
+}
 
 function config.lock_screen()
     awful.spawn("dbus-send --type=method_call --dest=org.gnome.ScreenSaver " ..

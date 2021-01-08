@@ -6,9 +6,12 @@ local menu = require("menu")
 local unpack = table.unpack
 local util = require("util")
 
-local file_manager = util.apps.default_file_manager().spawn
-local editor = util.apps.default_editor().spawn
-local browser = util.apps.default_browser().spawn
+local terminal = util.apps.app(config.terminal)
+local file_manager = util.apps.app(config.file_manager or
+                                       util.apps.default_file_manager())
+local editor = util.apps.app(config.editor or util.apps.default_editor())
+local browser = util.apps.app(config.browser or util.apps.default_browser())
+local settings = util.apps.app(config.settings)
 
 local keys = {mod = "Mod4", shift = "Shift", control = "Control"}
 
@@ -30,14 +33,16 @@ keys.global = join(unpack({
         {description = "run prompt", group = "launcher"}),
     key({mod}, "l", config.lock_screen,
         {description = "lock screen", group = "launcher"}),
-    key({mod}, "Return", function() awful.spawn(config.terminal) end,
-        {description = "open a terminal", group = "launcher"}),
-    key({mod}, "e", file_manager,
-        {description = "open file manager", group = "launcher"}),
-    key({mod}, "v", editor, {description = "open editor", group = "launcher"}),
-    key({mod}, "b", browser, {description = "open browser", group = "launcher"}),
-    key({mod}, "s", config.settings,
-        {description = "open settings", group = "launcher"}),
+    key({mod}, "Return", terminal.spawn,
+        {description = "open " .. terminal.name, group = "launcher"}),
+    key({mod}, "e", file_manager.spawn,
+        {description = "open " .. file_manager.name, group = "launcher"}),
+    key({mod}, "v", editor.spawn,
+        {description = "open " .. editor.name, group = "launcher"}),
+    key({mod}, "b", browser.spawn,
+        {description = "open " .. browser.name, group = "launcher"}),
+    key({mod}, "s", settings.spawn,
+        {description = "open " .. settings.name, group = "launcher"}),
 
     -- Switching clients
     key({mod}, "Tab", function()
