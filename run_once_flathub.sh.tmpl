@@ -12,5 +12,7 @@ chmod +x ~/.local/bin/pakitheme
 ~/.local/bin/pakitheme install-user
 
 flatpak install flathub org.zotero.Zotero
+flatpak override org.zotero.Zotero --user --filesystem "${XDG_DATA_HOME}/zotero"
+
 flatpak install flathub md.obsidian.Obsidian
 {{- end }}
