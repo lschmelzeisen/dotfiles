@@ -17,4 +17,5 @@ flatpak install flathub org.zotero.Zotero
 flatpak override org.zotero.Zotero --user --filesystem "${XDG_DATA_HOME}/zotero" --nofilesystem "~/Zotero"
 
 flatpak install flathub md.obsidian.Obsidian
+flatpak override md.obsidian.Obsidian --user --filesystem "${XDG_DATA_HOME}/obsidian"
 {{- end }}
