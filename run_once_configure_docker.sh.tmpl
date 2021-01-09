@@ -1,6 +1,20 @@
 #!/usr/bin/env sh
+
+# Switch to cgroup v1 (Fedora uses cgroups v2 by default) which is not yet supported by Docker.
+sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+
+# Add firewall exception for Docker.
+sudo firewall-cmd --permanent --zone=trusted --add-interface=docker0
+sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-masquerade
+
+# Autostart Docker service.
+sudo systemctl enable docker
+
+# Allow normal user to run Docker commands.
 sudo groupadd docker
 sudo usermod --append --groups docker $USER
+
+# Set storage overlay if using Docker.
 {{ if .host.docker_zfs -}}
 {{- if eq .chezmoi.osRelease.id "fedora" -}}
 sudo sed -i 's/storage-driver=overlay2/storage-driver=zfs/g' /etc/sysconfig/docker

@@ -18,13 +18,9 @@ sudo dnf install \
 {{ if .host.docker -}}
 echo "Installing Docker:"
 {{- /* See: https://fedoramagazine.org/docker-and-fedora-32/ */ -}}
-sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
-sudo firewall-cmd --permanent --zone=trusted --add-interface=docker0
-sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-masquerade
 sudo dnf install \
     docker-compose \
     moby-engine
-sudo systemctl enable docker
 {{- end }}
 
 {{ if .host.nvidia -}}
