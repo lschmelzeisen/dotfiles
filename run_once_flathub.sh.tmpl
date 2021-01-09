@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+{{ if not (eq .chezmoi.osRelease.id "fedora") -}}
+echo "No explicit flatpak installation configured for operating system '{{ .chezmoi.osRelease.id }}'."
+{{ end -}}
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+{{ if .host.desktop -}}
+# Make user-installed theme and icons available to Flatpak applications 
+mkdir -p ~/.local/bin
+curl -o ~/.local/bin/pakitheme https://raw.githubusercontent.com/refi64/pakitheme/master/pakitheme
+chmod +x ~/.local/bin/pakitheme
+~/.local/bin/pakitheme install-user
+
+flatpak install flathub org.zotero.Zotero
+flatpak install flathub md.obsidian.Obsidian
+{{- end }}

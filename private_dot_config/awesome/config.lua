@@ -4,8 +4,10 @@ local config = {
     terminal = "org.gnome.Terminal.desktop",
     settings = "gnome-control-center.desktop",
     apps = {
-        {"org.gnome.Calendar.desktop"},
+        "org.gnome.Calendar.desktop",
         {"teams.desktop", name = "Microsoft Teams"},
+        "org.zotero.Zotero.desktop",
+        {"md.obsidian.Obsidian.desktop", icon = "/var/lib/flatpak/exports/share/icons/hicolor/512x512/apps/md.obsidian.Obsidian.png"},
     },
 }
 
