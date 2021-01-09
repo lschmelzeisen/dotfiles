@@ -6,13 +6,15 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 
 {{ if .host.desktop -}}
 # Make user-installed theme and icons available to Flatpak applications 
-mkdir -p ~/.local/bin
-curl -o ~/.local/bin/pakitheme https://raw.githubusercontent.com/refi64/pakitheme/master/pakitheme
-chmod +x ~/.local/bin/pakitheme
-~/.local/bin/pakitheme install-user
+if [ ! -f "~/.local/bin/pakitheme" ] ; then
+    mkdir -p "~/.local/bin"
+    curl -o "~/.local/bin/pakitheme" "https://raw.githubusercontent.com/refi64/pakitheme/master/pakitheme"
+    chmod +x "~/.local/bin/pakitheme"
+    "~/.local/bin/pakitheme install-user"
+fi
 
 flatpak install flathub org.zotero.Zotero
-flatpak override org.zotero.Zotero --user --filesystem "${XDG_DATA_HOME}/zotero"
+flatpak override org.zotero.Zotero --user --filesystem "${XDG_DATA_HOME}/zotero" --nofilesystem "~/Zotero"
 
 flatpak install flathub md.obsidian.Obsidian
 {{- end }}
