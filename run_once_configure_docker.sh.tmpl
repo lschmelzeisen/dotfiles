@@ -4,8 +4,11 @@
 sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
 
 # Add firewall exception for Docker.
-sudo firewall-cmd --permanent --zone=trusted --add-interface=docker0
-sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-masquerade
+# TODO: check if still needed? I think container inet was broken before this.
+# But also breaks libvirt networking. Removed /etc/firewalld/zones/trusted.xml.
+# See: https://bugzilla.redhat.com/show_bug.cgi?id=1829090
+#sudo firewall-cmd --permanent --zone=trusted --add-interface=docker0
+#sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-masquerade
 
 # Autostart Docker service.
 sudo systemctl enable docker
