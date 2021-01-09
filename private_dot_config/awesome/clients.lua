@@ -29,7 +29,7 @@ awful.rules.rules = {
 
     { -- Add titlebars notifications and dialog
         rule_any = {type = {"notification", "dialog"}},
-        except_any = {class = {"Org.gnome.*"}},
+        except_any = {class = {"Org.gnome.*", "Gnome*", "Gedit", "Evolution"}},
         properties = {titlebars_enabled = true},
     },
 
