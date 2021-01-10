@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Windows 10 VM
+Comment=Start Windows 10 VM
+Icon=windows
+Exec=/usr/bin/virt-manager --connect qemu:///system --show-domain-console win10
+Terminal=false
+StartupNotify=false

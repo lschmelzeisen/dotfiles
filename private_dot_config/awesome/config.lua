@@ -8,6 +8,7 @@ local config = {
         {"teams.desktop", name = "Microsoft Teams"},
         "com.skype.Client.desktop",
         "virt-manager.desktop",
+        "win10.desktop",
         "org.zotero.Zotero.desktop",
         {"md.obsidian.Obsidian.desktop", icon = "/var/lib/flatpak/exports/share/icons/hicolor/512x512/apps/md.obsidian.Obsidian.png"},
     },
