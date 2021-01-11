@@ -17,4 +17,9 @@ set spelllang=en,de             " Spell checking in English and German.
 set undofile                    " Persist undo history.
 set termguicolors               " Enable 24-bit color support.
 set mouse=a                     " Enable mouse support in all modes.
-set clipboard+=unnamedplus      " Use system clipboard for everything.
+
+" --- Mappings -----------------------------------------------------------------
+" Bind copy/paste to Alt+C/V.
+noremap <A-c> "+y
+noremap <A-v> "+p
+inoremap <A-v> <C-r>*
