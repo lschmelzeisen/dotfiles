@@ -7,6 +7,7 @@ local config = {
         "org.gnome.Calendar.desktop",
         {"teams.desktop", name = "Microsoft Teams"},
         "com.skype.Client.desktop",
+        "us.zoom.Zoom.desktop",
         "virt-manager.desktop",
         "win10.desktop",
         "org.zotero.Zotero.desktop",
