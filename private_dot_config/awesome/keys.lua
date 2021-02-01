@@ -43,6 +43,9 @@ keys.global = join(unpack({
         {description = "open " .. browser.name, group = "launcher"}),
     key({mod}, "s", settings.spawn,
         {description = "open " .. settings.name, group = "launcher"}),
+    key({mod, control}, "b",
+        function() awful.spawn("systemctl restart --user barrierc") end,
+        {description = "restart barrierc", group="launcher"}),
 
     -- Switching clients
     key({mod}, "Tab", function()
