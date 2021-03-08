@@ -10,8 +10,12 @@ local config = {
         "us.zoom.Zoom.desktop",
         "virt-manager.desktop",
         "win10.desktop",
+        "com.bitwarden.desktop.desktop",
+        "org.chromium.Chromium.desktop",
         "org.zotero.Zotero.desktop",
         {"md.obsidian.Obsidian.desktop", icon = "/var/lib/flatpak/exports/share/icons/hicolor/512x512/apps/md.obsidian.Obsidian.png"},
+        "jetbrains-toolbox.desktop",
+        "jetbrains-pycharm.desktop",
     },
 }
 
