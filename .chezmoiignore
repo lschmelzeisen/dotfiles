@@ -4,28 +4,28 @@ README.md
 awesome-gnome
 
 {{ if not .host.desktop }}
-  {{- /* Markdown fix */ -}}
+  {{/* Markdown fix */}}
   .local/share/mime/packages/text-markdown.xml
   update_mime_database.sh
 
-  {{- /* Awesome-gnome */ -}}
+  {{/* Awesome-gnome */}}
   .config/awesome
   install_awesome-gnome.sh
 
-  {{- /* Fonts */ -}}
+  {{/* Fonts */}}
   install_hack_nerd_font.sh
   install_inter_font.sh
 
-  {{- /* Themes/Icons */ -}}
+  {{/* Themes/Icons */}}
   install_orchis_theme.sh
   install_tela_circle_icons.sh
 
-  {{- /* Miscellaneous */ -}}
+  {{/* Miscellaneous */}}
   update_gsettings.sh
 {{ end }}
 
 {{ if not .host.docker }}
-  configure_docker.sh.
+  configure_docker.sh
 {{ end }}
 
 {{ if not .host.nvidia_power }}
