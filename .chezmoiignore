@@ -3,50 +3,50 @@ README.md
 
 awesome-gnome
 
-{{ if not .host.desktop }}
-  {{/* Markdown fix */}}
-  .local/share/mime/packages/text-markdown.xml
-  update_mime_database.sh
-
-  {{/* Awesome-gnome */}}
-  .config/awesome
-  install_awesome-gnome.sh
-
-  {{/* Fonts */}}
-  install_hack_nerd_font.sh
-  install_inter_font.sh
-
-  {{/* Themes/Icons */}}
-  install_orchis_theme.sh
-  install_tela_circle_icons.sh
-
-  {{/* Miscellaneous */}}
-  update_gsettings.sh
+{{ if not .host.flathub }}
+  11_flathub.sh
 {{ end }}
 
 {{ if not .host.docker }}
-  configure_docker.sh
+  30_configure_docker.sh
 {{ end }}
 
 {{ if not .host.nvidia_power }}
-  configure_nvidia_dynamic_power.sh
+  30_configure_nvidia_dynamic_power.sh
 {{ end }}
 
-{{ if not .host.flathub }}
-  flathub.sh
+{{ if not .host.desktop }}
+  {{/* Awesome-gnome */}}
+  .config/awesome
+  20_install_awesome-gnome.sh
+
+  {{/* Fonts */}}
+  install_hack_nerd_font.sh
+  20_install_inter_font.sh
+
+  {{/* Themes/Icons */}}
+  20_install_orchis_theme.sh
+  20_install_tela_circle_icons.sh
+
+  {{/* Markdown fix */}}
+  .local/share/mime/packages/text-markdown.xml
+  50_update_mime_database.sh
+
+  {{/* Miscellaneous */}}
+  50_update_gsettings.sh
 {{ end }}
 
 {{ if not .host.barrier_host }}
   .config/systemd/user/barrierc.service
-  enable_barrierc_service.sh
+  50_enable_barrierc_service.sh
 {{ end }}
 {{ if not .host.barrier_fingerprint }}
   .local/share/barrier/SSL/Fingerprints/TrustedServers.txt
 {{ end }}
 
 {{ if not .host.jetbrains_toolbox }}
-  install_jetbrains_toolbox.sh
+  20_install_jetbrains_toolbox.sh
 {{ end }}
 {{ if not .host.msteams }}
-  install_msteams.sh
+  20_install_msteams.sh
 {{ end }}
