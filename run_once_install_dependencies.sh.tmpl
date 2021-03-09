@@ -3,7 +3,8 @@
 {{ if eq .chezmoi.osRelease.id "fedora" -}}
 
 echo "Setting up RPM Fusion repositories:"
-sudo dnf install fedora-workstation-repositoriessudo dnf install \
+sudo dnf install fedora-workstation-repositories
+sudo dnf install \
     https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
     https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf install rpmfusion-free-release-tainted rpmfusion-nonfree-release-tainted
@@ -12,7 +13,7 @@ sudo dnf update
 
 echo "Installing general dependencies for Fedora:"
 sudo dnf install \
-    @admin-tools \
+    flatpak \
     neovim
 
 {{ if .host.docker -}}
@@ -55,6 +56,7 @@ sudo dnf install \
 
 echo "Automatic dependency installation not configured for operating system '{{ .chezmoi.osRelease.id }}'."
 echo "Install the following dependencies manually:"
+echo "- Flatpak: https://flatpak.org/"
 echo "- Neovim: https://neovim.io/"
 
 {{ if .host.docker -}}

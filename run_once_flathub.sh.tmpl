@@ -1,7 +1,4 @@
 #!/usr/bin/env sh
-{{ if not (eq .chezmoi.osRelease.id "fedora") -}}
-echo "No explicit flatpak installation configured for operating system '{{ .chezmoi.osRelease.id }}'."
-{{ end -}}
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 {{ if .host.desktop -}}

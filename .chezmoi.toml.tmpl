@@ -7,18 +7,27 @@
   {{- $_ := set $lschmelzeisen "name" "Lukas Schmelzeisen" -}}
   {{- $_ := set $lschmelzeisen "mail" "l.schmelzeisen@gmx.de" -}}
 {{- $_ = set $users "lschmelzeisen" $lschmelzeisen -}}
+{{- $_ = set $users "schmells" $lschmelzeisen -}}
 
 {{- $razorback := dict -}}
   {{- $_ := set $razorback "docker" true -}}
   {{- $_ := set $razorback "docker_zfs" true -}}
   {{- $_ := set $razorback "nvidia" true -}}
   {{- $_ := set $razorback "nvidia_power" true -}}
-  {{- $_ := set $razorback "desktop" true -}}
   {{- $_ := set $razorback "flathub" true -}}
+  {{- $_ := set $razorback "desktop" true -}}
   {{- $_ := set $razorback "barrier_host" "192.168.178.20" -}}
   {{- $_ := set $razorback "barrier_fingerprint" "DE:82:A3:44:00:D2:5D:AE:D3:A1:58:E9:22:A7:0A:CB:CB:7D:03:92" -}}
+  {{- $_ := set $razorback "jetbrains_toolbox" true -}}
   {{- $_ := set $razorback "msteams" true -}}
 {{- $_ = set $hosts "razorback" $razorback -}}
+
+{{- $razorback_fedora33server := dict -}}
+  {{- $_ := set $razorback_fedora33server "docker" false -}}
+  {{- $_ := set $razorback_fedora33server "nvidia" false -}}
+  {{- $_ := set $razorback_fedora33server "flathub" true -}}
+  {{- $_ := set $razorback_fedora33server "desktop" false -}}
+{{- $_ = set $hosts "razorback-fedora33server" $razorback_fedora33server -}}
 
 
 {{- /* === User ========================================================= */ -}}
@@ -44,7 +53,7 @@
 
 {{- /* === Host ========================================================= */ -}}
 
-{{- $hostKeys := list "docker" "docker_zfs" "nvidia" "nvidia_power" "desktop" "flathub" "barrier_host" "barrier_fingerprint" "msteams" }}
+{{- $hostKeys := list "docker" "docker_zfs" "nvidia" "nvidia_power" "flathub" "desktop" "barrier_host" "barrier_fingerprint" "jetbrains_toolbox" "msteams" }}
 {{- $host := dict -}}
 {{- range $key := $hostKeys -}}
   {{- with $h := get $hosts $chezmoi.hostname -}}
@@ -76,15 +85,15 @@
   {{- $_ := set $host "nvidia_power" false -}}
 {{- end -}}
 
+{{- if $host.flathub | kindIs "invalid" -}}
+  {{- $_ := promptBool "Enable Flathub (y/n)" | set $host "flathub" -}}
+{{- end -}}
+
 {{- if $host.desktop | kindIs "invalid" -}}
   {{- $_ := promptBool "Desktop machine (y/n)" | set $host "desktop" -}}
 {{- end -}}
 
 {{- if $host.desktop -}}
-  {{- if $host.flathub | kindIs "invalid" -}}
-    {{- $_ := promptBool "Enable Flathub (y/n)" | set $host "flathub" -}}
-  {{- end -}}
-
   {{- if $host.barrier_host | kindIs "invalid" -}}
     {{- $_ := promptString "Barrier host (leave blank to not install barrier)" | set $host "barrier_host" -}}
   {{- end -}}
@@ -101,20 +110,11 @@
   {{- end -}}
 
 {{- else -}}
-  {{- if $host.flathub | kindIs "invalid" -}}
-    {{- $_ := set $host "flathub" false -}}
-  {{- end -}}
+  {{- $_ := set $host "barrier_host" "" -}}
+  {{- $_ := set $host "barrier_fingerprint" "" -}}
 
-  {{- if $host.barrier_host | kindIs "invalid" -}}
-    {{- $_ := set $host "barrier_host" "" -}}
-  {{- end -}}
-  {{- if $host.barrier_fingerprint | kindIs "invalid" -}}
-    {{- $_ := set $host "barrier_fingerprint" "" -}}
-  {{- end -}}
-
-  {{- if $host.msteams | kindIs "invalid" -}}
-    {{- $_ := set $host "msteams" false -}}
-  {{- end -}}
+  {{- $_ := set $host "jetbrains_toolbox" false -}}
+  {{- $_ := set $host "msteams" false -}}
 {{- end -}}
 
 
