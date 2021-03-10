@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+{{ if and .host.nvidia .host.docker (eq .chezmoi.osRelease.id "fedora") -}}
+# Based on: https://www.redhat.com/en/blog/how-use-gpus-containers-bare-metal-rhel-8
+curl --location --output /tmp/nvidia-container.pp \
+    https://github.com/NVIDIA/dgx-selinux/raw/master/bin/RHEL7/nvidia-container.pp
+sudo semodule -i /tmp/nvidia-container.pp
+nvidia-container-cli -k list | sudo restorecon -v -f -
+sudo restorecon -Rv /dev
+{{- end }}
