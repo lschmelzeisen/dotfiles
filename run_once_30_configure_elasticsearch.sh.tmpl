@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
+sudo sh -c "cat > /etc/sysctl.d/elasticsearch.conf" <<-EOF
+vm.swappiness=1 # https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration-memory.html
+vm.max_map_count=262144 # https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html#vm-max-map-count
+EOF
+if ! grep -q "Elasticsearch" /etc/security/limits.conf ; then
+    sudo sh -c "cat >> /etc/security/limits.conf" <<-EOF
+
+# For Elasticsearch:
+*               -       memlock          -1
+*               -       nofile           65535
+#*               -       nproc            4096
+EOF
+fi
+{{- else -}}
+echo "Preparing system for Elasticsearch installation is not configured for operation system '{{ .chezmoi.osRelease.id }}'."
+{{- end }}

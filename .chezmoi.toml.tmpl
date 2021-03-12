@@ -10,6 +10,7 @@
 {{- $_ = set $users "schmells" $lschmelzeisen -}}
 
 {{- $razorback := dict -}}
+  {{- $_ := set $razorback "elasticsearch" true -}}
   {{- $_ := set $razorback "flathub" true -}}
   {{- $_ := set $razorback "docker" true -}}
   {{- $_ := set $razorback "docker_zfs" true -}}
@@ -23,6 +24,7 @@
 {{- $_ = set $hosts "razorback" $razorback -}}
 
 {{- $razorback_fedora33server := dict -}}
+  {{- $_ := set $razorback "elasticsearch" true -}}
   {{- $_ := set $razorback_fedora33server "flathub" false -}}
   {{- $_ := set $razorback_fedora33server "docker" false -}}
   {{- $_ := set $razorback_fedora33server "nvidia" false -}}
@@ -53,7 +55,7 @@
 
 {{- /* === Host ========================================================= */ -}}
 
-{{- $hostKeys := list "flathub" "docker" "docker_zfs" "nvidia" "nvidia_power" "desktop" "barrier_host" "barrier_fingerprint" "jetbrains_toolbox" "msteams" }}
+{{- $hostKeys := list "docker" "docker_zfs" "elasticsearch" "flathub" "nvidia" "nvidia_power" "desktop" "barrier_host" "barrier_fingerprint" "jetbrains_toolbox" "msteams" }}
 {{- $host := dict -}}
 {{- range $key := $hostKeys -}}
   {{- with $h := get $hosts $chezmoi.hostname -}}
@@ -74,6 +76,14 @@
   {{- $_ := set $host "docker_zfs" false -}}
 {{- end -}}
 
+{{- if $host.elasticsearch | kindIs "invalid" -}}
+  {{- $_ := promptBool "Prepare system for hosting Elasticsearch (y/n)" | set $host "elasticsearch" -}}
+{{- end -}}
+
+{{- if $host.flathub | kindIs "invalid" -}}
+  {{- $_ := promptBool "Enable Flathub (y/n)" | set $host "flathub" -}}
+{{- end -}}
+
 {{- if $host.nvidia | kindIs "invalid" -}}
   {{- $_ := promptBool "Install NVIDIA drivers (y/n)" | set $host "nvidia" -}}
 {{- end -}}
@@ -83,10 +93,6 @@
   {{- end -}}
 {{- else -}}
   {{- $_ := set $host "nvidia_power" false -}}
-{{- end -}}
-
-{{- if $host.flathub | kindIs "invalid" -}}
-  {{- $_ := promptBool "Enable Flathub (y/n)" | set $host "flathub" -}}
 {{- end -}}
 
 {{- if $host.desktop | kindIs "invalid" -}}
