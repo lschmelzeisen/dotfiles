@@ -54,6 +54,16 @@
   {{- $_ := set $nauvoo "desktop" false -}}
 {{- $_ = set $hosts "nauvoo" $nauvoo -}}
 
+{{- $arboghast:= dict -}}
+  {{- $_ := set $arboghast "docker" false -}}
+  {{- $_ := set $arboghast "podman" true -}}
+  {{- $_ := set $arboghast "elasticsearch" true -}}
+  {{- $_ := set $arboghast "flathub" false -}}
+  {{- $_ := set $arboghast "nvidia" true -}}
+  {{- $_ := set $arboghast "nvidia_power" false -}}
+  {{- $_ := set $arboghast "desktop" false -}}
+{{- $_ = set $hosts "arboghast" $arboghast -}}
+
 {{- /* === User ========================================================= */ -}}
 
 {{- $userKeys := list "name" "mail" -}}
