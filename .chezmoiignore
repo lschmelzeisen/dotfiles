@@ -7,7 +7,7 @@ awesome-gnome
   30_configure_docker.sh
 {{ end }}
 
-{{ if not .host.docker }}
+{{ if not .host.podman }}
   30_configure_podman.sh
 {{ end }}
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-{{- if eq .chezmoi.osRelease.id "fedora" -}}
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
 sudo sed -i -e 's|^#mount_program|mount_program|g' /etc/containers/storage.conf
 {{- else -}}
 echo "Automatic storage configuration not configured for operating system '{{ .chezmoi.osRelease.id }}'."
-{{- end -}}
+{{- end }}

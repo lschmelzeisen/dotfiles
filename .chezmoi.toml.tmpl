@@ -36,9 +36,9 @@
 {{- $_ = set $hosts "razorback-fedora33" $razorback_fedora33 -}}
 
 {{- $razorback_fedora33server := dict -}}
-  {{- $_ := set $razorback "elasticsearch" true -}}
   {{- $_ := set $razorback_fedora33server "docker" false -}}
   {{- $_ := set $razorback_fedora33server "podman" true -}}
+  {{- $_ := set $razorback_fedora33server "elasticsearch" true -}}
   {{- $_ := set $razorback_fedora33server "flathub" false -}}
   {{- $_ := set $razorback_fedora33server "nvidia" false -}}
   {{- $_ := set $razorback_fedora33server "desktop" false -}}
