@@ -7,12 +7,20 @@ awesome-gnome
   30_configure_docker.sh
 {{ end }}
 
+{{ if not .host.docker }}
+  30_configure_podman.sh
+{{ end }}
+
 {{ if not .host.elasticsearch }}
   30_configure_elasticsearch.sh
 {{ end }}
 
 {{ if not .host.flathub }}
   11_flathub.sh
+{{ end }}
+
+{{ if not .host.nvidia }}
+  30_configure_nvidia_container.sh
 {{ end }}
 
 {{ if not .host.nvidia_power }}

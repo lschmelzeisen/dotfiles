@@ -1,9 +1,16 @@
 #!/usr/bin/env sh
-{{ if and .host.nvidia .host.docker (eq .chezmoi.osRelease.id "fedora") -}}
+{{ if and (or .host.docker .host.podman) (eq .chezmoi.osRelease.id "fedora") -}}
 # Based on: https://www.redhat.com/en/blog/how-use-gpus-containers-bare-metal-rhel-8
 curl --location --output /tmp/nvidia-container.pp \
     https://github.com/NVIDIA/dgx-selinux/raw/master/bin/RHEL7/nvidia-container.pp
 sudo semodule -i /tmp/nvidia-container.pp
 nvidia-container-cli -k list | sudo restorecon -v -f -
 sudo restorecon -Rv /dev
+{{- end }}
+
+{{ if .host.podman -}}
+sudo sed -i \
+    -e 's|^no-cgroups = false$|#\0\nno-cgroups = true|g' \
+    -e 's|^debug = "/var/log/nvidia-container-runtime.log"$|#\0\ndebug = "~/.local/nvidia-container-runtime.log"|g' \
+    /etc/nvidia-container-runtime/config.toml
 {{- end }}

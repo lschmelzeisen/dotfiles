@@ -10,9 +10,10 @@
 {{- $_ = set $users "schmells" $lschmelzeisen -}}
 
 {{- $razorback := dict -}}
+  {{- $_ := set $razorback "docker" false -}}
+  {{- $_ := set $razorback "podman" true -}}
   {{- $_ := set $razorback "elasticsearch" true -}}
   {{- $_ := set $razorback "flathub" true -}}
-  {{- $_ := set $razorback "docker" false -}}
   {{- $_ := set $razorback "nvidia" true -}}
   {{- $_ := set $razorback "nvidia_power" true -}}
   {{- $_ := set $razorback "desktop" true -}}
@@ -23,9 +24,10 @@
 {{- $_ = set $hosts "razorback" $razorback -}}
 
 {{- $razorback_fedora33 := dict -}}
+  {{- $_ := set $razorback_fedora33 "docker" false -}}
+  {{- $_ := set $razorback_fedora33 "podman" true -}}
   {{- $_ := set $razorback_fedora33 "elasticsearch" true -}}
   {{- $_ := set $razorback_fedora33 "flathub" true -}}
-  {{- $_ := set $razorback_fedora33 "docker" false -}}
   {{- $_ := set $razorback_fedora33 "nvidia" false -}}
   {{- $_ := set $razorback_fedora33 "desktop" true -}}
   {{- $_ := set $razorback_fedora33 "barrier_host" "" -}}
@@ -35,8 +37,9 @@
 
 {{- $razorback_fedora33server := dict -}}
   {{- $_ := set $razorback "elasticsearch" true -}}
-  {{- $_ := set $razorback_fedora33server "flathub" false -}}
   {{- $_ := set $razorback_fedora33server "docker" false -}}
+  {{- $_ := set $razorback_fedora33server "podman" true -}}
+  {{- $_ := set $razorback_fedora33server "flathub" false -}}
   {{- $_ := set $razorback_fedora33server "nvidia" false -}}
   {{- $_ := set $razorback_fedora33server "desktop" false -}}
 {{- $_ = set $hosts "razorback-fedora33server" $razorback_fedora33server -}}
@@ -65,7 +68,7 @@
 
 {{- /* === Host ========================================================= */ -}}
 
-{{- $hostKeys := list "docker" "docker_zfs" "elasticsearch" "flathub" "nvidia" "nvidia_power" "desktop" "barrier_host" "barrier_fingerprint" "jetbrains_toolbox" "msteams" }}
+{{- $hostKeys := list "docker" "docker_zfs" "podman" "elasticsearch" "flathub" "nvidia" "nvidia_power" "desktop" "barrier_host" "barrier_fingerprint" "jetbrains_toolbox" "msteams" }}
 {{- $host := dict -}}
 {{- range $key := $hostKeys -}}
   {{- with $h := get $hosts $chezmoi.hostname -}}
@@ -84,6 +87,10 @@
   {{- end -}}
 {{- else -}}
   {{- $_ := set $host "docker_zfs" false -}}
+{{- end -}}
+
+{{- if $host.podman | kindIs "invalid" -}}
+  {{- $_ := promptBool "Install podman (y/n)" | set $host "podman" -}}
 {{- end -}}
 
 {{- if $host.elasticsearch | kindIs "invalid" -}}

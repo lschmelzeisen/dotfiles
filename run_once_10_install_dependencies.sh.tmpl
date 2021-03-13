@@ -24,6 +24,13 @@ sudo dnf install \
     moby-engine
 {{- end }}
 
+{{ if .host.podman -}}
+echo "Installing Podman:"
+sudo dnf install \
+    podman \
+    podman-compose
+{{- end }}
+
 {{ if .host.nvidia -}}
 echo "Installing NVIDIA drivers:"
 # This uses the packages from the RPM Fusion repositories added above. For
@@ -66,6 +73,12 @@ echo "- Neovim: https://neovim.io/"
 
 {{ if .host.docker -}}
 echo "- Docker: https://www.docker.com/"
+echo "- Docker Compose: https://docs.docker.com/compose/"
+{{- end }}
+
+{{ if .host.podman -}}
+echo "- Podman: https://podman.io/"
+echo "- Podman Compose: https://github.com/containers/podman-compose"
 {{- end }}
 
 {{ if .host.nvidia -}}
