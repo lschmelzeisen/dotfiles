@@ -44,6 +44,15 @@
   {{- $_ := set $razorback_fedora33server "desktop" false -}}
 {{- $_ = set $hosts "razorback-fedora33server" $razorback_fedora33server -}}
 
+{{- $nauvoo := dict -}}
+  {{- $_ := set $nauvoo "docker" false -}}
+  {{- $_ := set $nauvoo "podman" true -}}
+  {{- $_ := set $nauvoo "elasticsearch" true -}}
+  {{- $_ := set $nauvoo "flathub" false -}}
+  {{- $_ := set $nauvoo "nvidia" true -}}
+  {{- $_ := set $nauvoo "nvidia_power" false -}}
+  {{- $_ := set $nauvoo "desktop" false -}}
+{{- $_ = set $hosts "nauvoo" $nauvoo -}}
 
 {{- /* === User ========================================================= */ -}}
 

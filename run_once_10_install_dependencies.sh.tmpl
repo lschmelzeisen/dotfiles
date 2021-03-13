@@ -42,8 +42,7 @@ echo "Installing NVIDIA drivers:"
 sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda vulkan vdpauinfo libva-vdpau-driver libva-utils
 
 echo "Installing NVIDIA container toolkit:"
-curl --location https://nvidia.github.io/nvidia-docker/centos8/nvidia-docker.repo | \
-    sudo cat > /etc/yum.repos.d/nvidia-docker.repo
+sudo sh -c "curl --location https://nvidia.github.io/nvidia-docker/centos8/nvidia-docker.repo > /etc/yum.repos.d/nvidia-docker.repo"
 sudo dnf install nvidia-container-toolkit
 {{- end }}
 
