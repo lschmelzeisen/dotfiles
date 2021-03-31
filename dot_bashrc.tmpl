@@ -45,7 +45,7 @@ export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export MYKEYID="0x3EF8D67DB54A4043"
 
 gpgconf --create-socketdir
-{{- if not .host.remote }}
+{{- if not .host.gpg_agent_forward_target }}
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent

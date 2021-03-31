@@ -1,0 +1,45 @@
+{{- define "remote_forward" -}}
+  {{- if .remote.gpg_agent_forward_target -}}
+    RemoteForward {{ .remote.gpg_socket_dir }}/S.gpg-agent {{ .host.gpg_socket_dir }}/
+    {{- if .host.gpg_agent_forward_target -}}
+      S.gpg-agent
+    {{- else -}}
+      S.gpg-agent.extra
+    {{- end -}}
+  {{- else -}}
+    # Not target of GPG agent forwarding.
+  {{- end -}}
+{{- end -}}
+
+Host *
+    # As security best practice, never specify ForwardAgent here.
+
+Host razorback
+    HostName 192.168.178.55
+    User lschmelzeisen
+    ForwardAgent yes
+    {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback) }}
+
+Host razorback.fedora33
+    HostName 192.168.122.124
+    User lschmelzeisen
+    ForwardAgent yes
+    {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback_fedora33) }}
+
+Host razorback.fedora33server
+    HostName 192.168.122.172
+    User lschmelzeisen
+    ForwardAgent yes
+    {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback_fedora33server) }}
+
+Host nauvoo
+    HostName 192.168.178.62
+    User lschmelzeisen
+    ForwardAgent yes
+    {{ template "remote_forward" (dict "host" .host "remote" .hosts.nauvoo) }}
+
+Host ac.arboghast
+    HostName 129.69.187.203
+    User schmells
+    ForwardAgent yes
+    {{ template "remote_forward" (dict "host" .host "remote" .hosts.arboghast) }}

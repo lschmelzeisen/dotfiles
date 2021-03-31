@@ -3,73 +3,78 @@
 
 {{- /* === Customization ================================================ */ -}}
 
-{{- $lschmelzeisen := dict -}}
-  {{- $_ := set $lschmelzeisen "name" "Lukas Schmelzeisen" -}}
-  {{- $_ := set $lschmelzeisen "mail" "l.schmelzeisen@gmx.de" -}}
-{{- $_ = set $users "lschmelzeisen" $lschmelzeisen -}}
-{{- $_ = set $users "schmells" $lschmelzeisen -}}
+{{- $u := dict -}}
+  {{- $_ := set $u "name" "Lukas Schmelzeisen" -}}
+  {{- $_ := set $u "mail" "l.schmelzeisen@gmx.de" -}}
+{{- $_ = set $users "lschmelzeisen" $u -}}
+{{- $_ = set $users "schmells" $u -}}
 
-{{- $razorback := dict -}}
-  {{- $_ := set $razorback "remote" false -}}
-  {{- $_ := set $razorback "docker" false -}}
-  {{- $_ := set $razorback "podman" true -}}
-  {{- $_ := set $razorback "elasticsearch" true -}}
-  {{- $_ := set $razorback "flathub" true -}}
-  {{- $_ := set $razorback "nvidia" true -}}
-  {{- $_ := set $razorback "nvidia_power" true -}}
-  {{- $_ := set $razorback "desktop" true -}}
-  {{- $_ := set $razorback "barrier_host" "192.168.178.20" -}}
-  {{- $_ := set $razorback "barrier_fingerprint" "DE:82:A3:44:00:D2:5D:AE:D3:A1:58:E9:22:A7:0A:CB:CB:7D:03:92" -}}
-  {{- $_ := set $razorback "virt_manager" true -}}
-  {{- $_ := set $razorback "jetbrains_toolbox" true -}}
-  {{- $_ := set $razorback "msteams" true -}}
-{{- $_ = set $hosts "razorback" $razorback -}}
+{{- $h := dict -}}
+  {{- $_ := set $h "gpg_socket_dir" "/run/user/1000/gnupg/d.fj15x7xb73ergseatdpnwdt7" -}}
+  {{- $_ := set $h "gpg_agent_forward_target" false -}}
+  {{- $_ := set $h "docker" false -}}
+  {{- $_ := set $h "podman" true -}}
+  {{- $_ := set $h "elasticsearch" true -}}
+  {{- $_ := set $h "flathub" true -}}
+  {{- $_ := set $h "nvidia" true -}}
+  {{- $_ := set $h "nvidia_power" true -}}
+  {{- $_ := set $h "desktop" true -}}
+  {{- $_ := set $h "barrier_host" "192.168.178.20" -}}
+  {{- $_ := set $h "barrier_fingerprint" "DE:82:A3:44:00:D2:5D:AE:D3:A1:58:E9:22:A7:0A:CB:CB:7D:03:92" -}}
+  {{- $_ := set $h "virt_manager" true -}}
+  {{- $_ := set $h "jetbrains_toolbox" true -}}
+  {{- $_ := set $h "msteams" true -}}
+{{- $_ = set $hosts "razorback" $h -}}
 
-{{- $razorback_fedora33 := dict -}}
-  {{- $_ := set $razorback_fedora33 "remote" true -}}
-  {{- $_ := set $razorback_fedora33 "docker" false -}}
-  {{- $_ := set $razorback_fedora33 "podman" true -}}
-  {{- $_ := set $razorback_fedora33 "elasticsearch" true -}}
-  {{- $_ := set $razorback_fedora33 "flathub" true -}}
-  {{- $_ := set $razorback_fedora33 "nvidia" false -}}
-  {{- $_ := set $razorback_fedora33 "desktop" true -}}
-  {{- $_ := set $razorback_fedora33 "barrier_host" "" -}}
-  {{- $_ := set $razorback_fedora33 "virt_manager" false -}}
-  {{- $_ := set $razorback_fedora33 "jetbrains_toolbox" false -}}
-  {{- $_ := set $razorback_fedora33 "msteams" false -}}
-{{- $_ = set $hosts "razorback-fedora33" $razorback_fedora33 -}}
+{{- $h := dict -}}
+  {{- $_ := set $h "gpg_socket_dir" "/run/user/1000/gnupg/d.fj15x7xb73ergseatdpnwdt7" -}}
+  {{- $_ := set $h "gpg_agent_forward_target" true -}}
+  {{- $_ := set $h "docker" false -}}
+  {{- $_ := set $h "podman" true -}}
+  {{- $_ := set $h "elasticsearch" true -}}
+  {{- $_ := set $h "flathub" true -}}
+  {{- $_ := set $h "nvidia" false -}}
+  {{- $_ := set $h "desktop" true -}}
+  {{- $_ := set $h "barrier_host" "" -}}
+  {{- $_ := set $h "virt_manager" false -}}
+  {{- $_ := set $h "jetbrains_toolbox" false -}}
+  {{- $_ := set $h "msteams" false -}}
+{{- $_ = set $hosts "razorback_fedora33" $h -}}
 
-{{- $razorback_fedora33server := dict -}}
-  {{- $_ := set $razorback_fedora33server "remote" true -}}
-  {{- $_ := set $razorback_fedora33server "docker" false -}}
-  {{- $_ := set $razorback_fedora33server "podman" true -}}
-  {{- $_ := set $razorback_fedora33server "elasticsearch" true -}}
-  {{- $_ := set $razorback_fedora33server "flathub" false -}}
-  {{- $_ := set $razorback_fedora33server "nvidia" false -}}
-  {{- $_ := set $razorback_fedora33server "desktop" false -}}
-{{- $_ = set $hosts "razorback-fedora33server" $razorback_fedora33server -}}
+{{- $h:= dict -}}
+  {{- $_ := set $h "gpg_socket_dir" "/run/user/1000/gnupg/d.fj15x7xb73ergseatdpnwdt7" -}}
+  {{- $_ := set $h "gpg_agent_forward_target" true -}}
+  {{- $_ := set $h "docker" false -}}
+  {{- $_ := set $h "podman" true -}}
+  {{- $_ := set $h "elasticsearch" true -}}
+  {{- $_ := set $h "flathub" false -}}
+  {{- $_ := set $h "nvidia" false -}}
+  {{- $_ := set $h "desktop" false -}}
+{{- $_ = set $hosts "razorback_fedora33server" $h -}}
 
-{{- $nauvoo := dict -}}
-  {{- $_ := set $nauvoo "remote" true -}}
-  {{- $_ := set $nauvoo "docker" false -}}
-  {{- $_ := set $nauvoo "podman" true -}}
-  {{- $_ := set $nauvoo "elasticsearch" true -}}
-  {{- $_ := set $nauvoo "flathub" false -}}
-  {{- $_ := set $nauvoo "nvidia" true -}}
-  {{- $_ := set $nauvoo "nvidia_power" false -}}
-  {{- $_ := set $nauvoo "desktop" false -}}
-{{- $_ = set $hosts "nauvoo" $nauvoo -}}
+{{- $h := dict -}}
+  {{- $_ := set $h "gpg_socket_dir" "/run/user/1000/gnupg/d.fj15x7xb73ergseatdpnwdt7" -}}
+  {{- $_ := set $h "gpg_agent_forward_target" true -}}
+  {{- $_ := set $h "docker" false -}}
+  {{- $_ := set $h "podman" true -}}
+  {{- $_ := set $h "elasticsearch" true -}}
+  {{- $_ := set $h "flathub" false -}}
+  {{- $_ := set $h "nvidia" true -}}
+  {{- $_ := set $h "nvidia_power" false -}}
+  {{- $_ := set $h "desktop" false -}}
+{{- $_ = set $hosts "nauvoo" $h -}}
 
-{{- $arboghast:= dict -}}
-  {{- $_ := set $arboghast "remote" true -}}
-  {{- $_ := set $arboghast "docker" false -}}
-  {{- $_ := set $arboghast "podman" true -}}
-  {{- $_ := set $arboghast "elasticsearch" true -}}
-  {{- $_ := set $arboghast "flathub" false -}}
-  {{- $_ := set $arboghast "nvidia" true -}}
-  {{- $_ := set $arboghast "nvidia_power" false -}}
-  {{- $_ := set $arboghast "desktop" false -}}
-{{- $_ = set $hosts "arboghast" $arboghast -}}
+{{- $h := dict -}}
+  {{- $_ := set $h "gpg_socket_dir" "/run/user/1000/gnupg/d.9r8a7u8b4py83j85z3pbxmyh" -}}
+  {{- $_ := set $h "gpg_agent_forward_target" true -}}
+  {{- $_ := set $h "docker" false -}}
+  {{- $_ := set $h "podman" true -}}
+  {{- $_ := set $h "elasticsearch" true -}}
+  {{- $_ := set $h "flathub" false -}}
+  {{- $_ := set $h "nvidia" true -}}
+  {{- $_ := set $h "nvidia_power" false -}}
+  {{- $_ := set $h "desktop" false -}}
+{{- $_ = set $hosts "arboghast" $h -}}
 
 {{- /* === User ========================================================= */ -}}
 
@@ -94,18 +99,22 @@
 
 {{- /* === Host ========================================================= */ -}}
 
-{{- $hostKeys := list "remote" "docker" "docker_zfs" "podman" "elasticsearch" "flathub" "nvidia" "nvidia_power" "desktop" "barrier_host" "barrier_fingerprint" "virt_manager" "jetbrains_toolbox" "msteams" }}
+{{- $hostKeys := list "gpg_socket_dir" "gpg_agent_forward_target" "docker" "docker_zfs" "podman" "elasticsearch" "flathub" "nvidia" "nvidia_power" "desktop" "barrier_host" "barrier_fingerprint" "virt_manager" "jetbrains_toolbox" "msteams" }}
 {{- $host := dict -}}
 {{- range $key := $hostKeys -}}
-  {{- with $h := get $hosts $chezmoi.hostname -}}
+  {{- with $h := get $hosts ($chezmoi.hostname | replace "-" "_") -}}
     {{- $_ := hasKey $h $key | ternary (get $h $key) nil | set $host $key -}}
   {{- else -}}
     {{- $_ := set $host $key nil -}}
   {{- end -}}
 {{- end -}}
 
-{{- if $host.remote | kindIs "invalid" -}}
-  {{- $_ := promptBool "Will this machine be the target of gpg-agent-forwarding (y/n)" | set $host "remote" -}}
+{{- if $host.gpg_socket_dir | kindIs "invalid" -}}
+  {{- $_ := promptString "Path to GPG socket dir (output of `gpgconf --list-dirs socketdir`)" | set $host "gpg_socket_dir" -}}
+{{- end -}}
+
+{{- if $host.gpg_agent_forward_target | kindIs "invalid" -}}
+  {{- $_ := promptBool "Will this machine be the target of gpg-agent-forwarding (y/n)" | set $host "gpg_agent_forward_target" -}}
 {{- end -}}
 
 {{- if $host.docker | kindIs "invalid" -}}
@@ -159,15 +168,15 @@
   {{- end -}}
 
   {{- if $host.virt_manager | kindIs "invalid" -}}
-    {{- $_ := promptString "Install virt-manager (y/n)" | set $host "virt-manager" -}}
+    {{- $_ := promptBool "Install virt-manager (y/n)" | set $host "virt-manager" -}}
   {{- end -}}
 
   {{- if $host.jetbrains_toolbox | kindIs "invalid" -}}
-    {{- $_ := promptString "Install JetBrains Toolsbox (y/n)" | set $host "jetbrains_toolsbox" -}}
+    {{- $_ := promptBool "Install JetBrains Toolsbox (y/n)" | set $host "jetbrains_toolsbox" -}}
   {{- end -}}
 
   {{- if $host.msteams | kindIs "invalid" -}}
-    {{- $_ := promptString "Install Microsoft Teams (y/n)" | set $host "msteams" -}}
+    {{- $_ := promptBool "Install Microsoft Teams (y/n)" | set $host "msteams" -}}
   {{- end -}}
 
 {{- else -}}
@@ -187,7 +196,23 @@
     {{ $key }} = {{ printf "%#v" $value }}
   {{- end }}
 
+  [data.users]
+  {{- range $key, $value := $users }}
+    [data.users.{{ $key }}]
+    {{- range $key2, $value2 := $value }}
+      {{ $key2 }} = {{ printf "%#v" $value2 }}
+    {{- end }}
+  {{- end }}
+
   [data.host]
   {{- range $key, $value := $host }}
     {{ $key }} = {{ printf "%#v" $value }}
+  {{- end }}
+
+  [data.hosts]
+  {{- range $key, $value := $hosts }}
+    [data.hosts.{{ $key }}]
+    {{- range $key2, $value2 := $value }}
+      {{ $key2 }} = {{ printf "%#v" $value2 }}
+    {{- end }}
   {{- end }}
