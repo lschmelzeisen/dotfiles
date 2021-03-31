@@ -21,6 +21,7 @@ mkdir -p "$XDG_DATA_HOME/less"
 export LESSHISTFILE="$XDG_DATA_HOME/less/history"
 
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export MYKEYID="0x3EF8D67DB54A4043"
 
 export IPYTHONDIR="$XDG_CONFIG_HOME/jupyter"
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
@@ -29,6 +30,22 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 
 export VISUAL="nvim"
 export EDITOR="nvim"
+
+function gpg-switch-card() {
+    gpg --list-secret-keys --with-keygrip $MYKEYID \
+        | sed -nE "s#^\s*Keygrip = ([0-9A-Z]+)\s*\$#$GNUPGHOME/private-keys-v1.d/\1.key#p" \
+        | xargs rm -f
+    gpgconf --kill gpg-agent
+    gpg --card-status
+}
+
+function gpg-enc {
+    gpg --encrypt --armor --recipient $MYKEYID
+}
+
+function gpg-dec {
+    gpg --decrypt
+}
 
 alias vi="nvim"
 alias vim="nvim"
