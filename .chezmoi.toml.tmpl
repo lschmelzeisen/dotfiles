@@ -10,6 +10,7 @@
 {{- $_ = set $users "schmells" $lschmelzeisen -}}
 
 {{- $razorback := dict -}}
+  {{- $_ := set $razorback "remote" false -}}
   {{- $_ := set $razorback "docker" false -}}
   {{- $_ := set $razorback "podman" true -}}
   {{- $_ := set $razorback "elasticsearch" true -}}
@@ -24,6 +25,7 @@
 {{- $_ = set $hosts "razorback" $razorback -}}
 
 {{- $razorback_fedora33 := dict -}}
+  {{- $_ := set $razorback_fedora33 "remote" true -}}
   {{- $_ := set $razorback_fedora33 "docker" false -}}
   {{- $_ := set $razorback_fedora33 "podman" true -}}
   {{- $_ := set $razorback_fedora33 "elasticsearch" true -}}
@@ -36,6 +38,7 @@
 {{- $_ = set $hosts "razorback-fedora33" $razorback_fedora33 -}}
 
 {{- $razorback_fedora33server := dict -}}
+  {{- $_ := set $razorback_fedora33server "remote" true -}}
   {{- $_ := set $razorback_fedora33server "docker" false -}}
   {{- $_ := set $razorback_fedora33server "podman" true -}}
   {{- $_ := set $razorback_fedora33server "elasticsearch" true -}}
@@ -45,6 +48,7 @@
 {{- $_ = set $hosts "razorback-fedora33server" $razorback_fedora33server -}}
 
 {{- $nauvoo := dict -}}
+  {{- $_ := set $nauvoo "remote" true -}}
   {{- $_ := set $nauvoo "docker" false -}}
   {{- $_ := set $nauvoo "podman" true -}}
   {{- $_ := set $nauvoo "elasticsearch" true -}}
@@ -55,6 +59,7 @@
 {{- $_ = set $hosts "nauvoo" $nauvoo -}}
 
 {{- $arboghast:= dict -}}
+  {{- $_ := set $arboghast "remote" true -}}
   {{- $_ := set $arboghast "docker" false -}}
   {{- $_ := set $arboghast "podman" true -}}
   {{- $_ := set $arboghast "elasticsearch" true -}}
@@ -87,7 +92,7 @@
 
 {{- /* === Host ========================================================= */ -}}
 
-{{- $hostKeys := list "docker" "docker_zfs" "podman" "elasticsearch" "flathub" "nvidia" "nvidia_power" "desktop" "barrier_host" "barrier_fingerprint" "jetbrains_toolbox" "msteams" }}
+{{- $hostKeys := list "remote" "docker" "docker_zfs" "podman" "elasticsearch" "flathub" "nvidia" "nvidia_power" "desktop" "barrier_host" "barrier_fingerprint" "jetbrains_toolbox" "msteams" }}
 {{- $host := dict -}}
 {{- range $key := $hostKeys -}}
   {{- with $h := get $hosts $chezmoi.hostname -}}
@@ -95,6 +100,10 @@
   {{- else -}}
     {{- $_ := set $host $key nil -}}
   {{- end -}}
+{{- end -}}
+
+{{- if $host.remote | kindIs "invalid" -}}
+  {{- $_ := promptBool "Will this machine be the target of gpg-agent-forwarding (y/n)" | set $host "remote" -}}
 {{- end -}}
 
 {{- if $host.docker | kindIs "invalid" -}}

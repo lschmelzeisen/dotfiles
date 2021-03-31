@@ -1,0 +1,28 @@
+Host *
+    # As security best practice, never specify ForwardAgent here.
+
+Host razorback
+    HostName 192.168.178.55
+    User lschmelzeisen
+    ForwardAgent yes
+
+Host razorback.fedora33
+    HostName 192.168.122.124
+    User lschmelzeisen
+    ForwardAgent yes
+
+Host razorback.fedora33server
+    HostName 192.168.122.172
+    User lschmelzeisen
+    ForwardAgent yes
+    RemoteForward /run/user/1000/gnupg/d.fj15x7xb73ergseatdpnwdt7/S.gpg-agent /run/user/1000/gnupg/d.fj15x7xb73ergseatdpnwdt7/S.gpg-agent.extra
+
+Host nauvoo
+    HostName 192.168.178.62
+    User lschmelzeisen
+    ForwardAgent yes
+
+Host ac.arboghast
+    HostName 129.69.187.203
+    User schmells
+    ForwardAgent yes
