@@ -15,6 +15,7 @@ gsettings set org.gnome.gedit.preferences.editor display-right-margin true
 # When a folder is visited this viewer is used unless you have selected another view for that particular folder. Possible values are “list-view”, and “icon-view”. Default: 'icon-view'
 gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view'
 
+{{ if .host.virt_manager -}}
 # Enable XML editing UI Default: false
 gsettings set org.virt-manager.virt-manager xmleditor-enabled true
 
@@ -35,3 +36,4 @@ gsettings set org.virt-manager.virt-manager.stats enable-net-poll true
 
 # Show memory usage field in the domain list summary view Default: false
 gsettings set org.virt-manager.virt-manager.vmlist-fields memory-usage true
+{{- end }}

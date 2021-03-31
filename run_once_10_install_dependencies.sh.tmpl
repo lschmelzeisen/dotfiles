@@ -63,6 +63,11 @@ sudo dnf install \
     barrier
 {{- end }}
 
+{{ if .host.virt_manager -}}
+sudo dnf install \
+    virt-manager
+{{- end }}
+
 {{- else -}}
 
 echo "Automatic dependency installation not configured for operating system '{{ .chezmoi.osRelease.id }}'."
@@ -98,6 +103,10 @@ echo "- GTK Murrine Engine"
 
 {{ if .host.barrier_host -}}
 echo "- Barrier: https://github.com/debauchee/barrier"
+{{- end }}
+
+{{ if .host.virt_manager -}}
+echo "- virt-manager: https://virt-manager.org/"
 {{- end }}
 
 {{- end }}

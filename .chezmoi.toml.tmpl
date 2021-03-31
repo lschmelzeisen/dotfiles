@@ -20,6 +20,7 @@
   {{- $_ := set $razorback "desktop" true -}}
   {{- $_ := set $razorback "barrier_host" "192.168.178.20" -}}
   {{- $_ := set $razorback "barrier_fingerprint" "DE:82:A3:44:00:D2:5D:AE:D3:A1:58:E9:22:A7:0A:CB:CB:7D:03:92" -}}
+  {{- $_ := set $razorback "virt_manager" true -}}
   {{- $_ := set $razorback "jetbrains_toolbox" true -}}
   {{- $_ := set $razorback "msteams" true -}}
 {{- $_ = set $hosts "razorback" $razorback -}}
@@ -33,8 +34,9 @@
   {{- $_ := set $razorback_fedora33 "nvidia" false -}}
   {{- $_ := set $razorback_fedora33 "desktop" true -}}
   {{- $_ := set $razorback_fedora33 "barrier_host" "" -}}
-  {{- $_ := set $razorback_fedora33 "jetbrains_toolbox" true -}}
-  {{- $_ := set $razorback_fedora33 "msteams" true -}}
+  {{- $_ := set $razorback_fedora33 "virt_manager" false -}}
+  {{- $_ := set $razorback_fedora33 "jetbrains_toolbox" false -}}
+  {{- $_ := set $razorback_fedora33 "msteams" false -}}
 {{- $_ = set $hosts "razorback-fedora33" $razorback_fedora33 -}}
 
 {{- $razorback_fedora33server := dict -}}
@@ -92,7 +94,7 @@
 
 {{- /* === Host ========================================================= */ -}}
 
-{{- $hostKeys := list "remote" "docker" "docker_zfs" "podman" "elasticsearch" "flathub" "nvidia" "nvidia_power" "desktop" "barrier_host" "barrier_fingerprint" "jetbrains_toolbox" "msteams" }}
+{{- $hostKeys := list "remote" "docker" "docker_zfs" "podman" "elasticsearch" "flathub" "nvidia" "nvidia_power" "desktop" "barrier_host" "barrier_fingerprint" "virt_manager" "jetbrains_toolbox" "msteams" }}
 {{- $host := dict -}}
 {{- range $key := $hostKeys -}}
   {{- with $h := get $hosts $chezmoi.hostname -}}
@@ -156,6 +158,14 @@
     {{- end -}}
   {{- end -}}
 
+  {{- if $host.virt_manager | kindIs "invalid" -}}
+    {{- $_ := promptString "Install virt-manager (y/n)" | set $host "virt-manager" -}}
+  {{- end -}}
+
+  {{- if $host.jetbrains_toolbox | kindIs "invalid" -}}
+    {{- $_ := promptString "Install JetBrains Toolsbox (y/n)" | set $host "jetbrains_toolsbox" -}}
+  {{- end -}}
+
   {{- if $host.msteams | kindIs "invalid" -}}
     {{- $_ := promptString "Install Microsoft Teams (y/n)" | set $host "msteams" -}}
   {{- end -}}
@@ -163,6 +173,8 @@
 {{- else -}}
   {{- $_ := set $host "barrier_host" "" -}}
   {{- $_ := set $host "barrier_fingerprint" "" -}}
+
+  {{- $_ := set $host "virt_manager" false -}}
 
   {{- $_ := set $host "jetbrains_toolbox" false -}}
   {{- $_ := set $host "msteams" false -}}
