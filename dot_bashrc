@@ -8,6 +8,8 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]] ; then
 fi
 export PATH
 
+# See: https://wiki.archlinux.org/index.php/XDG_Base_Directory
+
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -18,7 +20,12 @@ export HISTFILE="$XDG_DATA_HOME/bash/history"
 mkdir -p "$XDG_DATA_HOME/less"
 export LESSHISTFILE="$XDG_DATA_HOME/less/history"
 
-export JAVA_TOOL_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+
+export IPYTHONDIR="$XDG_CONFIG_HOME/jupyter"
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
+
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 
 export VISUAL="nvim"
 export EDITOR="nvim"
