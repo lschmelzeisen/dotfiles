@@ -9,27 +9,40 @@ fi
 export PATH
 
 # See: https://wiki.archlinux.org/index.php/XDG_Base_Directory
-
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 
-mkdir -p "$XDG_DATA_HOME/bash"
+# -- Miscellaneous -------------------------------------------------------------
+
 export HISTFILE="$XDG_DATA_HOME/bash/history"
-
-mkdir -p "$XDG_DATA_HOME/less"
 export LESSHISTFILE="$XDG_DATA_HOME/less/history"
-
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"
-export MYKEYID="0x3EF8D67DB54A4043"
 
 export IPYTHONDIR="$XDG_CONFIG_HOME/jupyter"
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
 
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 
+alias cip="curl --silent https://ipinfo.io | jq"
+
+# -- Editors -------------------------------------------------------------------
+
 export VISUAL="nvim"
 export EDITOR="nvim"
+
+alias vi="nvim"
+alias vim="nvim"
+
+# -- Chezmoi -------------------------------------------------------------------
+
+alias ccd="chezmoi cd"
+alias can="chezmoi apply --verbose --dry-run"
+alias ca="chezmoi apply"
+
+# -- GPG -----------------------------------------------------------------------
+
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export MYKEYID="0x3EF8D67DB54A4043"
 
 function gpg-switch-card() {
     gpg --list-secret-keys --with-keygrip $MYKEYID \
@@ -46,13 +59,3 @@ function gpg-enc {
 function gpg-dec {
     gpg --decrypt
 }
-
-alias vi="nvim"
-alias vim="nvim"
-
-alias ccd="chezmoi cd"
-alias can="chezmoi apply --verbose --dry-run"
-alias ca="chezmoi apply"
-
-# Get current ip
-alias cip="curl --silent https://ipinfo.io | jq"

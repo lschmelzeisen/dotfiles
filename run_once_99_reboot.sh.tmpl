@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+if [ ! -f "{{ .chezmoi.sourceDir }}/.reboot.99" ]; then
+    echo "Rebooting, so that all performed changes are loaded..."
+    sudo -- sh -c \
+        "touch '{{ .chezmoi.sourceDir }}/.reboot.99' && systemctl reboot"
+fi

@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+if [ ! -f "{{ .chezmoi.sourceDir }}/.reboot.01" ]; then
+    echo "Rebooting, so that environment variables are loaded before running scripts..."
+    sudo -- sh -c \
+        "touch '{{ .chezmoi.sourceDir }}/.reboot.01' && systemctl reboot"
+fi
