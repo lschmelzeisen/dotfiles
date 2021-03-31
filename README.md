@@ -12,6 +12,8 @@ chezmoi apply
 ```
 
 The above command will try to install all dependencies automatically.
+The system will reboot in during this process.
+Once it has restarted, rerun `chezmoi apply` until nothing changes anymore.
 If your system does not support this, it will print a list of dependencies to be installed.
 
 But you probably should not just run these scripts without manually checking
