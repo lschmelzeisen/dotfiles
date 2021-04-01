@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-gpg --import "{{ .chezmoi.sourceDir }}/pgp-keys/lschmelzeisen.public.asc"
-echo "0D81170A7E23EB1005A8FD9D3EF8D67DB54A4043:6:" | gpg --import-ownertrust
+gpg --import "{{ .chezmoi.sourceDir }}/{{ .user.gpg_key_file }}"
+echo "{{ .user.gpg_key_fingerprint }}:6:" | gpg --import-ownertrust

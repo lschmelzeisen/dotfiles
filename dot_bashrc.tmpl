@@ -42,7 +42,8 @@ alias ca="chezmoi apply"
 # -- GPG -----------------------------------------------------------------------
 
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
-export MYKEYID="0x3EF8D67DB54A4043"
+export MYKEYFPR="{{ .user.gpg_key_fingerprint }}"
+export MYKEYID="{{ .user.gpg_key_id }}"
 
 gpgconf --create-socketdir
 {{- if not .host.gpg_agent_forward_target }}
@@ -52,6 +53,7 @@ gpgconf --launch gpg-agent
 {{- end }}
 
 function gpg-switch-card() {
+    systemctl restart pcscd
     gpg --list-secret-keys --with-keygrip $MYKEYID \
         | sed -nE "s#^\s*Keygrip = ([0-9A-Z]+)\s*\$#$GNUPGHOME/private-keys-v1.d/\1.key#p" \
         | xargs rm -f

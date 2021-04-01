@@ -5,7 +5,10 @@
 
 {{- $u := dict -}}
   {{- $_ := set $u "name" "Lukas Schmelzeisen" -}}
-  {{- $_ := set $u "mail" "l.schmelzeisen@gmx.de" -}}
+  {{- $_ := set $u "mail" "me@lschmelzeisen.com" -}}
+  {{- $_ := set $u "gpg_key_file" "pgp-keys/lschmelzeisen.public.asc" -}}
+  {{- $_ := set $u "gpg_key_fingerprint" "0D81170A7E23EB1005A8FD9D3EF8D67DB54A4043" -}}
+  {{- $_ := set $u "gpg_key_id" "0x3EF8D67DB54A4043" -}}
 {{- $_ = set $users "lschmelzeisen" $u -}}
 {{- $_ = set $users "schmells" $u -}}
 
@@ -78,7 +81,7 @@
 
 {{- /* === User ========================================================= */ -}}
 
-{{- $userKeys := list "name" "mail" -}}
+{{- $userKeys := list "name" "mail" "gpg_key_file" "gpg_key_fingerprint" "gpg_key_id" -}}
 {{- $user := dict -}}
 {{- range $key := $userKeys -}}
   {{- with $u := get $users $chezmoi.username -}}
