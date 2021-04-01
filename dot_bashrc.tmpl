@@ -66,6 +66,7 @@ function gpg-list-sockets() {
 function gpg-reset-sockets() {
     pkill gpg-agent
     rm -r "$XDG_RUNTIME_DIR/gnupg"
+    gpgconf --create-socketdir
 }
 
 function gpg-enc {
