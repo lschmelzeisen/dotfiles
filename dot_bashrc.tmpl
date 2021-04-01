@@ -59,6 +59,15 @@ function gpg-switch-card() {
     gpg --card-status
 }
 
+function gpg-list-sockets() {
+    find "$XDG_RUNTIME_DIR/gnupg"
+}
+
+function gpg-reset-sockets() {
+    pkill gpg-agent
+    rm -r "$XDG_RUNTIME_DIR/gnupg"
+}
+
 function gpg-enc {
     gpg --encrypt --armor --recipient $MYKEYID
 }

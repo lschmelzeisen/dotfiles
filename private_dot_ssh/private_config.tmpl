@@ -12,7 +12,8 @@
 {{- end -}}
 
 Host *
-    # As security best practice, never specify ForwardAgent here.
+    # As security best practice, never specify ForwardAgent/RemoteForward here,
+    # because these directives should only be used with trusted hosts.
 
 Host razorback
     HostName 192.168.178.55
