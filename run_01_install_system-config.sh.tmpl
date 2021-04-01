@@ -11,6 +11,10 @@ install_file() {
     fi
 }
 
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
 install_file sshd_config /etc/ssh/sshd_config.d/10-lschmelzeisen.conf
+{{- else -}}
+echo "Automatic system configuration file installation not configured."
+{{- end }}
 
 awk '$5 >= 3071' /etc/ssh/moduli > /tmp/moduli && sudo mv /tmp/moduli /etc/ssh/moduli
