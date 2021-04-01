@@ -59,13 +59,13 @@ function gpg-switch-card() {
     gpg --card-status
 }
 
-function gpg-list-sockets() {
-    find "$XDG_RUNTIME_DIR/gnupg"
+function gpg-ls-socketdir() {
+    gpgconf --list-dirs socketdir | xargs ls
 }
 
-function gpg-reset-sockets() {
-    pkill gpg-agent
-    rm -r "$XDG_RUNTIME_DIR/gnupg"
+function gpg-reset-socketdir() {
+    pkill -u $(id -u) gpg-agent
+    gpgconf --remove-socketdir
     gpgconf --create-socketdir
 }
 
