@@ -12,35 +12,35 @@
 {{- end -}}
 
 Host *
+    HashKnownHosts yes
+    KexAlgorithms curve25519-sha256@libssh.org
+    HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-ed25519
+    Ciphers chacha20-poly1305@openssh.com
+    MACs hmac-sha2-512-etm@openssh.com
     # As security best practice, never specify ForwardAgent/RemoteForward here,
     # because these directives should only be used with trusted hosts.
 
 Host razorback
     HostName 192.168.178.55
     User lschmelzeisen
-    ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback) }}
 
 Host razorback.fedora33
     HostName 192.168.122.124
     User lschmelzeisen
-    ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback_fedora33) }}
 
 Host razorback.fedora33server
     HostName 192.168.122.172
     User lschmelzeisen
-    ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback_fedora33server) }}
 
 Host nauvoo
     HostName 192.168.178.62
     User lschmelzeisen
-    ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.nauvoo) }}
 
 Host ac.arboghast
     HostName 129.69.187.203
     User schmells
-    ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.arboghast) }}

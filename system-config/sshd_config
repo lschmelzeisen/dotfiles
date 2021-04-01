@@ -1,0 +1,37 @@
+# Adapted from https://stribika.github.io/2015/01/04/secure-secure-shell.html
+# and https://infosec.mozilla.org/guidelines/openssh.html
+# and https://github.com/drduh/config/blob/master/sshd_config
+
+KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
+MACs hmac-sha2-512-etm@openssh.com
+
+# Supported HostKey algorithms by order of preference.
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+
+# Password based logins are disabled - only public key based logins are allowed.
+AuthenticationMethods publickey
+
+# LogLevel VERBOSE logs user's key fingerprint on login. Needed to have a clear audit track of which key was using to log in.
+LogLevel VERBOSE
+
+# Root login is not allowed for auditing reasons. This is because it's difficult to track which process belongs to which root user:
+#
+# On Linux, user sessions are tracking using a kernel-side session id, however, this session id is not recorded by OpenSSH.
+# Additionally, only tools such as systemd and auditd record the process session id.
+# On other OSes, the user session id is not necessarily recorded at all kernel-side.
+# Using regular users in combination with /bin/su or /usr/bin/sudo ensure a clear audit track.
+PermitRootLogin No
+
+# Use kernel sandbox mechanisms where possible in unprivileged processes
+# Systrace on OpenBSD, Seccomp on Linux, seatbelt on MacOSX/Darwin, rlimit elsewhere.
+UsePrivilegeSeparation sandbox
+
+# Renegotatiate keys either after default amount of bytes have been transmitted
+# or 1h elapses.
+RekeyLimit default 1H
+
+# Useful for GPG agent forwarding as it replaces the existing socket, if it exists.
+StreamLocalBindUnlink yes

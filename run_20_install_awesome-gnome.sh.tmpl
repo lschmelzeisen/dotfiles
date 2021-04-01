@@ -3,7 +3,7 @@
 echo "Installing awesome-gnome..."
 
 install_file() {
-    if cmp --silent "{{ .chezmoi.sourceDir }}/awesome-gnome/$1" "$2" ; then
+    if sudo cmp --silent "{{ .chezmoi.sourceDir }}/awesome-gnome/$1" "$2" ; then
         echo "  File $1 already exists at location $2"
     else
         echo "  Installing file $1 to location $2"

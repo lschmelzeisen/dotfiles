@@ -3,6 +3,7 @@ README.md
 
 awesome-gnome
 pgp-keys
+system-config
 
 {{ if not .host.docker }}
   30_configure_docker.sh

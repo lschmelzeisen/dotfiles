@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+echo "Installing system-config..."
+
+install_file() {
+    if sudo cmp --silent "{{ .chezmoi.sourceDir }}/system-config/$1" "$2" ; then
+        echo "  File $1 already exists at location $2"
+    else
+        echo "  Installing file $1 to location $2"
+        sudo install -D --preserve-timestamps --mode 0600 "{{ .chezmoi.sourceDir }}/system-config/$1" "$2"
+    fi
+}
+
+install_file sshd_config /etc/ssh/sshd_config.d/10-lschmelzeisen.conf
+
+awk '$5 >= 3071' /etc/ssh/moduli > /tmp/moduli && sudo mv /tmp/moduli /etc/ssh/moduli
