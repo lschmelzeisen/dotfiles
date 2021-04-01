@@ -14,7 +14,9 @@ sudo dnf update
 echo "Installing general dependencies for Fedora:"
 sudo dnf install \
     flatpak \
-    neovim
+    htop \
+    neovim \
+    screen
 
 {{ if .host.docker -}}
 echo "Installing Docker:"
@@ -73,7 +75,9 @@ sudo dnf install \
 echo "Automatic dependency installation not configured for operating system '{{ .chezmoi.osRelease.id }}'."
 echo "Install the following dependencies manually:"
 echo "- Flatpak: https://flatpak.org/"
+echo "- htop: https://htop.dev/"
 echo "- Neovim: https://neovim.io/"
+echo "- Screen: https://www.gnu.org/software/screen/screen.html"
 
 {{ if .host.docker -}}
 echo "- Docker: https://www.docker.com/"
