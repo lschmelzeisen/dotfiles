@@ -1,3 +1,13 @@
 [user]
 name = "{{ .user.name }}"
 email = "{{ .user.mail }}"
+signingKey = "{{ .user.gpg_key_fingerprint }}"
+
+[commit]
+gpgSign = true
+
+[tag]
+gpgSign = true
+
+[push]
+gpgSign = if-asked
