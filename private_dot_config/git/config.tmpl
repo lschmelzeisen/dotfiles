@@ -3,6 +3,9 @@ name = "{{ .user.name }}"
 email = "{{ .user.mail }}"
 signingKey = "{{ .user.gpg_key_fingerprint }}"
 
+[init]
+defaultBranch = "main"
+
 [commit]
 gpgSign = true
 
