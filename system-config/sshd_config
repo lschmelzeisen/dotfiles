@@ -25,10 +25,6 @@ LogLevel VERBOSE
 # Using regular users in combination with /bin/su or /usr/bin/sudo ensure a clear audit track.
 PermitRootLogin No
 
-# Use kernel sandbox mechanisms where possible in unprivileged processes
-# Systrace on OpenBSD, Seccomp on Linux, seatbelt on MacOSX/Darwin, rlimit elsewhere.
-UsePrivilegeSeparation sandbox
-
 # Renegotatiate keys either after default amount of bytes have been transmitted
 # or 1h elapses.
 RekeyLimit default 1H
