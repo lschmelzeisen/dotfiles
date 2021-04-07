@@ -45,10 +45,15 @@ Host nauvoo
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.nauvoo) }}
 
 Host ac.arboghast
-    HostName 129.69.187.203
+    HostName arboghast.informatik.uni-stuttgart.de
     User schmells
     ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.arboghast) }}
+
+Host ac.arboghast.schmells-main
+    HostName arboghast.informatik.uni-stuttgart.de
+    User root
+    Port 51022
 
 Host github.com
     User git
