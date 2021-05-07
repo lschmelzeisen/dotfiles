@@ -50,10 +50,21 @@ Host ac.arboghast
     ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.arboghast) }}
 
-Host ac.arboghast.schmells-main
+Host ac.arboghast.*
     HostName arboghast.informatik.uni-stuttgart.de
     User root
+
+Host ac.arboghast.schmells-main
     Port 51022
+
+Host ac.arboghast.xiongbo-main
+    Port 52022
+
+Host ac.arboghast.baierax-main
+    Port 53022
+
+Host ac.arboghast.iurshiaa-main
+    Port 54022
 
 Host github.com
     User git
