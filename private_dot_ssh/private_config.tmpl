@@ -21,19 +21,19 @@ Host *
     # because these directives should only be used with trusted hosts.
 
 Host razorback
-    HostName 192.168.178.55
+    HostName 192.168.178.73
     User lschmelzeisen
     ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback) }}
 
 Host razorback.fedora33
-    HostName 192.168.122.124
+    HostName 192.168.178.74
     User lschmelzeisen
     ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback_fedora33) }}
 
 Host razorback.fedora33server
-    HostName 192.168.122.172
+    HostName 192.168.178.77
     User lschmelzeisen
     ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback_fedora33server) }}
@@ -57,6 +57,9 @@ Host ac.arboghast.*
 Host ac.arboghast.schmells-main
     Port 51022
 
+Host ac.arboghast.schmells-kg
+    Port 51122
+
 Host ac.arboghast.xiongbo-main
     Port 52022
 
@@ -65,6 +68,12 @@ Host ac.arboghast.baierax-main
 
 Host ac.arboghast.iurshiaa-main
     Port 54022
+
+Host ac.arboghast.dimaga-main
+    Port 55022
+
+Host ac.arboghast.dimaga-schmidpp
+    Port 55122
 
 Host github.com
     User git
