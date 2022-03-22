@@ -18,13 +18,26 @@ do -- Miscellaneous ------------------------------------------------------------
 end
 
 do -- Colors -------------------------------------------------------------------
-    theme.fg_normal = gtk.wm_title_unfocused_color
-    theme.fg_focus = gtk.wm_title_focused_color
-    theme.fg_urgent = gtk.wm_title_focused_color
+    theme.fg_normal = "#FFFFFFFF"
+    theme.fg_focus = "#FFFFFFFF"
+    theme.fg_urgent = "#FFFFFFFF"
 
-    theme.bg_normal = gtk.wm_border_unfocused_color
-    theme.bg_focus = gtk.wm_border_focused_color
-    theme.bg_urgent = gtk.wm_border_focused_color
+    theme.bg_normal = "#2C2C2CFF"
+    theme.bg_focus = "#616161FF"
+    theme.bg_urgent = "#616161FF"
+
+    if gtk then
+        -- beautiful.gtk.get_theme_variables() is broken on stock Awesome if
+        -- GTK 4 is also installed.
+        -- see https://www.reddit.com/r/awesomewm/comments/mz2tzo/cant_load_gtk3_introspection/
+        theme.fg_normal = gtk.wm_title_unfocused_color
+        theme.fg_focus = gtk.wm_title_focused_color
+        theme.fg_urgent = gtk.wm_title_focused_color
+
+        theme.bg_normal = gtk.wm_border_unfocused_color
+        theme.bg_focus = gtk.wm_border_focused_color
+        theme.bg_urgent = gtk.wm_border_focused_color
+    end
 end
 
 --------------------------------------------------------------------------------
