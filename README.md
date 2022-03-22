@@ -22,6 +22,11 @@ So far, fully automated installation has not been tested.
 I know at least once after installing everything a reboot is required, but reboots
 could also be required at specific installations steps in between.
 
+## To-do
+
+- Add poetry
+- Different versions of NVIDIA driver depending on machine
+
 ## License
 
 Copyright 2020 Lukas Schmelzeisen.
