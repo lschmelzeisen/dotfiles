@@ -21,7 +21,7 @@ Host *
     # because these directives should only be used with trusted hosts.
 
 Host razorback
-    HostName 192.168.178.73
+    HostName 192.168.178.55
     User lschmelzeisen
     ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback) }}
@@ -37,6 +37,17 @@ Host razorback.fedora33server
     User lschmelzeisen
     ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback_fedora33server) }}
+
+Host razorback.fedora35
+    HostName 192.168.178.98
+    User lschmelzeisen
+    ForwardAgent yes
+    {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback_fedora33) }}
+
+Host firehawk
+    HostName 192.168.178.89
+    User lschmelzeisen
+    ForwardAgent yes
 
 Host nauvoo
     HostName 192.168.178.62
@@ -60,8 +71,14 @@ Host ac.arboghast.schmells-main
 Host ac.arboghast.schmells-kg
     Port 51122
 
+Host ac.arboghast.schmells-kumarss
+    Port 51222
+
 Host ac.arboghast.xiongbo-main
     Port 52022
+
+Host ac.arboghast.xiongbo-matznerln
+    Port 52122
 
 Host ac.arboghast.baierax-main
     Port 53022
@@ -74,6 +91,36 @@ Host ac.arboghast.dimaga-main
 
 Host ac.arboghast.dimaga-schmidpp
     Port 55122
+
+Host ac.arboghast.dimaga-wangyi
+    Port 55222
+
+Host ac.arboghast.wangzo-main
+    Port 56022
+
+Host ac.arboghast.boutalra-main
+    Port 57022
+
+Host ac.arboghast.boutalra-mittalah
+    Port 57122
+
+Host ac.arboghast.panjn-main
+    Port 58022
+
+Host ac.arboghast.schneitm-main
+    Port 59022
+
+Host ac.arboghast.aspanddy-zhangcg
+    Port 60122
+
+Host ac.arboghast.lopezro-main
+    Port 61022
+
+Host ac.arboghast.gregucco-main
+    Port 62022
+
+Host ac.arboghast.frankdl-main
+    Port 63022
 
 Host github.com
     User git
