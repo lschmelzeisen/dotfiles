@@ -13,9 +13,11 @@ local config = {
         "com.bitwarden.desktop.desktop",
         "org.chromium.Chromium.desktop",
         "org.zotero.Zotero.desktop",
+        "org.signal.Signal.desktop",
         {"md.obsidian.Obsidian.desktop", icon = "/var/lib/flatpak/exports/share/icons/hicolor/512x512/apps/md.obsidian.Obsidian.png"},
         "jetbrains-toolbox.desktop",
         "jetbrains-pycharm.desktop",
+        "com.spotify.Client.desktop",
     },
 }
 
