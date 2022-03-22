@@ -32,12 +32,6 @@ Host razorback.fedora33
     ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback_fedora33) }}
 
-Host razorback.fedora33server
-    HostName 192.168.178.77
-    User lschmelzeisen
-    ForwardAgent yes
-    {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback_fedora33server) }}
-
 Host razorback.fedora35
     HostName 192.168.178.98
     User lschmelzeisen
