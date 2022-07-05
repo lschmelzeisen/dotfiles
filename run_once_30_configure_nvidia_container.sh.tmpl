@@ -10,7 +10,8 @@ sudo restorecon -Rv /dev
 
 {{ if .host.podman -}}
 sudo sed -i \
-    -e 's|^no-cgroups = false$|#\0\nno-cgroups = true|g' \
-    -e 's|^debug = "/var/log/nvidia-container-runtime.log"$|#\0\ndebug = "~/.local/nvidia-container-runtime.log"|g' \
+    -e 's|^#no-cgroups = false$|\0\nno-cgroups = true|g' \
+    -e 's|^#debug = "/var/log/nvidia-container-toolkit.log"$|\0\ndebug = "~/.local/nvidia-container-toolkit.log"|g' \
+    -e 's|^#debug = "/var/log/nvidia-container-runtime.log"$|\0\ndebug = "~/.local/nvidia-container-runtime.log"|g' \
     /etc/nvidia-container-runtime/config.toml
 {{- end }}
