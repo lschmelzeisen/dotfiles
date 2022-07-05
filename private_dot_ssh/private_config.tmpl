@@ -27,13 +27,13 @@ Host razorback
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback) }}
 
 Host razorback.fedora33
-    HostName 192.168.178.74
+    HostName 192.168.122.214
     User lschmelzeisen
     ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback_fedora33) }}
 
 Host razorback.fedora35
-    HostName 192.168.178.98
+    HostName 192.168.122.57
     User lschmelzeisen
     ForwardAgent yes
     {{ template "remote_forward" (dict "host" .host "remote" .hosts.razorback_fedora33) }}
@@ -74,6 +74,9 @@ Host ac.arboghast.xiongbo-main
 Host ac.arboghast.xiongbo-matznerln
     Port 52122
 
+Host ac.arboghast.xiongbo-guptaat
+    Port 52222
+
 Host ac.arboghast.baierax-main
     Port 53022
 
@@ -98,8 +101,14 @@ Host ac.arboghast.boutalra-main
 Host ac.arboghast.boutalra-mittalah
     Port 57122
 
+Host ac.arboghast.boutalra-burgbarn
+    Port 57222
+
 Host ac.arboghast.panjn-main
     Port 58022
+
+Host ac.arboghast.panjn-linkbt
+    Port 58122
 
 Host ac.arboghast.schneitm-main
     Port 59022
@@ -110,11 +119,20 @@ Host ac.arboghast.aspanddy-zhangcg
 Host ac.arboghast.lopezro-main
     Port 61022
 
+Host ac.arboghast.lopezro-backup
+    Port 61122
+
 Host ac.arboghast.gregucco-main
     Port 62022
 
 Host ac.arboghast.frankdl-main
     Port 63022
+
+Host ac.arboghast.latifdi-dllab
+    Port 64122
+
+Host ac.arboghast.mengesrl-knechtjn
+    Port 65122
 
 Host github.com
     User git
